@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         min: 2,
-        max :5
+        max: 5
     },
     email: {
         type: String,
@@ -32,18 +32,18 @@ const userSchema = new mongoose.Schema({
     billingAddress: {
         type: String,
         required: true
-      },
-      phone: {
+    },
+    phone: {
         type: String,
         required: true
-      },
-      paymentMethods: [{
+    },
+    paymentMethods: [{
         name: String,
         cardNumber: String,
         expirationDate: String,
         cvv: String
-      }]
-    
+    }]
+
 })
 
 const User = mongoose.model("User", userSchema);

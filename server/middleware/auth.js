@@ -1,23 +1,23 @@
 import jwt from "jsonwebtoken";
 
+//Middleware function used to protect user routes
 export const verifyUserWithToken = async (req, res, next) => {
 
     try {
         let token = req.header("Authorization");
-        if(!token)
-        {
-            return res.staus(403).send("Access denied");
+        if (!token) {
+            return res.status(403).send("Access denied");
         }
 
-        if(token.startsWith("Bearer ")){
+        if (token.startsWith("Bearer ")) {
             token = token.slice(7, token.length).trimLeft();
         }
 
-        const verified = jwt.verify(token,  process.env.JWT_TOKEN);
+        const verified = jwt.verify(token, process.env.JWT_TOKEN);
         req.user = verified;
         next();
     }
-    catch(error) {
-        res.status(500).json({message: `An error has occured: ${error}`})
+    catch (error) {
+        res.status(500).json({ message: `An error has occured: ${error}` })
     }
 }

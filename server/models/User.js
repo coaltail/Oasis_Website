@@ -42,7 +42,13 @@ const userSchema = new mongoose.Schema({
         cardNumber: String,
         expirationDate: String,
         cvv: String
-    }]
+    }],
+    role:{
+        type : String,
+        enum : ["user", "admin"],
+        required: true,
+        default: "user",
+    }
 
 })
 

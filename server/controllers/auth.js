@@ -39,6 +39,7 @@ export const registerNewUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
   try {
+    console.log("Logged in");
     const { email, password } = req.body;
     const user = await User.findOne({ email: email });
     if (!user) {
@@ -69,9 +70,9 @@ export const refreshToken = async (req, res) => {
     console.log(req.cookies);
     const refreshToken = req.cookies.refreshToken;
     if (!refreshToken) {
-      res.status(401).json({ message: "Refresh token not found." });
+      return res.status(401).json({ message: "Refresh token not found." });
     }
-    const { userId } = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    const { userId } = jwt.verify(refreshToken, process.env.JWT_TOKEN);
 
 
     const accessToken = jwt.sign({ id: userId }, process.env.JWT_TOKEN, { expiresIn: '1h' });
@@ -84,7 +85,7 @@ export const refreshToken = async (req, res) => {
     res.cookie('refreshToken', newRefreshToken, { httpOnly: true, secure: true, });
 
 
-    res.status(200).json({ accessToken });
+    return res.status(200).json({ accessToken });
   }
   catch (err) {
     res.status(401).json({ message: "Invalid or expired refresh token" });

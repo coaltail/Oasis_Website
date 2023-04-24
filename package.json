@@ -23,9 +23,5 @@
     "mongoose": "^7.0.3",
     "nodemon": "^2.0.22"
   },
-<<<<<<< HEAD
   "type": "module"
-=======
-  "type":"module"
->>>>>>> frontend-app
 }

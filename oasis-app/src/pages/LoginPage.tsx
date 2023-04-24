@@ -38,7 +38,8 @@ const LoginPage = () => {
     const handleFormSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try {
-            const response = await loginUser(formData);
+            const response = await loginUser(formData).then(data => { console.log(data) });
+            console.log(response);
             navigate("/products");
         } catch (error: any) {
             if (error.response) {

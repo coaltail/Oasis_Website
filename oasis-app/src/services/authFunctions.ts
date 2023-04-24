@@ -4,20 +4,15 @@ export interface LoginData {
   email: string,
   password: string
 }
-
-const setAuthToken = (token: string) => {
-    if (token) {
-      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-      sessionStorage.setItem('token', token);
-    } else {
-      sessionStorage.removeItem('token');
-      delete axios.defaults.headers.common.Authorization;
-    }
-  };
+const config = {
+  headers: {
+     'Content-Type': 'application/json',
+    },
+   withCredentials: true
+ }; 
 
 export const loginUser = async(formData: LoginData) => {
-    const response = await axios.post("http://localhost:5050/auth/login", {email: formData.email, password: formData.password});
-    const token = response.data.token;
-    setAuthToken(token);
+    const response = await axios.post("http://localhost:5050/auth/login", {email: formData.email, password: formData.password}, config);
+    const token = response.data;
     return token;
 }

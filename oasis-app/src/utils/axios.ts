@@ -3,13 +3,13 @@ import axios from 'axios';
 const instance = axios.create({
   baseURL: 'http://localhost:5050',
   timeout: 5000,
+  withCredentials: true,
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
 });
 
 instance.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
+  // No need to add Authorization header since the token is included in the XSRF-TOKEN cookie
   return config;
 });
 

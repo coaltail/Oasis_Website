@@ -34,7 +34,9 @@ export const registerNewUser = async (req, res) => {
   catch (error) {
     res.status(500).json({ message: `An errror has occured: ${error}` });
   }
-}
+};
+
+
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -48,15 +50,48 @@ export const loginUser = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_TOKEN);
+    const accessToken = jwt.sign({ id: user._id }, process.env.JWT_TOKEN, { expiresIn: '15m' });
+    const refreshToken = jwt.sign({ id: user._id }, process.env.JWT_TOKEN, { expiresIn: '24h' });
+    res.cookie('accessToken', accessToken, { httpOnly: true, secure: true });
+    res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: true });
+
     delete user.password;
 
     // Send the response after all processing is done
-    res.status(200).json({ token, user });
+    res.status(200).json({ refreshToken, accessToken, user });
   } catch (err) {
     res.status(500).json({ message: `An error has occurred: ${err}` });
   }
 };
+
+export const refreshToken = async (req, res) => {
+  try {
+    console.log(req.cookies);
+    const refreshToken = req.cookies.refreshToken;
+    if (!refreshToken) {
+      res.status(401).json({ message: "Refresh token not found." });
+    }
+    const { userId } = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+
+
+    const accessToken = jwt.sign({ id: userId }, process.env.JWT_TOKEN, { expiresIn: '1h' });
+
+
+    const newRefreshToken = jwt.sign({ id: userId }, process.env.JWT_TOKEN, { expiresIn: '7d' });
+
+
+    res.cookie('accessToken', accessToken, { httpOnly: true, secure: true });
+    res.cookie('refreshToken', newRefreshToken, { httpOnly: true, secure: true, });
+
+
+    res.status(200).json({ accessToken });
+  }
+  catch (err) {
+    res.status(401).json({ message: "Invalid or expired refresh token" });
+  }
+};
+
+
 
 export const loginAdmin = async (req, res) => {
   try {
@@ -75,6 +110,7 @@ export const loginAdmin = async (req, res) => {
     if (!passwordCheck) return res.status(403).json({ message: "Invalid credentials " });
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_TOKEN_ADMIN);
+    res.cookie('adminAccessToken', token, { httpOnly: true, secure: true });
     delete user.password;
 
     res.status(200).json({ token, user });

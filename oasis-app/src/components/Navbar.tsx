@@ -1,10 +1,17 @@
-import { AppBar, CssBaseline, Typography, Toolbar, IconButton, List, ListItem, ListItemButton, ListItemText, Divider, Stack, Link as MuiLink } from '@mui/material';
+import { AppBar, CssBaseline, Typography, Toolbar, IconButton, List, ListItem, ListItemButton, ListItemText, Divider, Stack, Link as MuiLink, Button } from '@mui/material';
 import Box from '@mui/material/Box/Box';
 import EngineeringRoundedIcon from '@mui/icons-material/EngineeringRounded';
 import { Link } from 'react-router-dom'
-
+import { useSelector } from 'react-redux';
+import { AuthState } from '../state/redux';
+import { setLogout } from '../state/redux';
+import { useDispatch } from 'react-redux';
 const Navbar = () => {
-    const isLoggedIn = true;
+    const user = useSelector((state: { auth: AuthState }) => state.user);
+    const dispatch = useDispatch();
+    const handleLogout = () => {
+        dispatch(setLogout());
+    };
     return (
         <>
             <CssBaseline />
@@ -36,7 +43,7 @@ const Navbar = () => {
                             </MuiLink>
                         </Typography>
                     </Box>
-                    <Stack direction='row' spacing={2}>
+                    <Stack direction='row' spacing={2} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <Typography>
                             <MuiLink
                                 component={Link}
@@ -52,38 +59,50 @@ const Navbar = () => {
                                 Products
                             </MuiLink>
                         </Typography>
-                        <Typography>
-                            <MuiLink
-                                component={Link}
-                                to='/register'
-                                sx={{
-                                    color: '#fff',
-                                    textDecoration: 'none',
-                                    '&:hover': {
-                                        textDecoration: 'underline',
-                                    },
-                                }}
-                            >
-                                Register
-                            </MuiLink>
-                        </Typography>
-                        {isLoggedIn && (
-                            <Typography>
-                                <MuiLink
-                                    component={Link}
-                                    to='/login'
-                                    sx={{
-                                        color: '#fff',
-                                        textDecoration: 'none',
-                                        '&:hover': {
-                                            textDecoration: 'underline',
-                                        },
-                                    }}
-                                >
-                                    Login
-                                </MuiLink>
-                            </Typography>
-                        )}
+
+                        {!user ? (
+                            <>
+
+
+                                <Typography>
+                                    <MuiLink
+                                        component={Link}
+                                        to='/register'
+                                        sx={{
+                                            color: '#fff',
+                                            textDecoration: 'none',
+                                            '&:hover': {
+                                                textDecoration: 'underline',
+                                            },
+                                        }}
+                                    >
+                                        Register
+                                    </MuiLink>
+                                </Typography>
+                                <Typography>
+                                    <MuiLink
+                                        component={Link}
+                                        to='/login'
+                                        sx={{
+                                            color: '#fff',
+                                            textDecoration: 'none',
+                                            '&:hover': {
+                                                textDecoration: 'underline',
+                                            },
+                                        }}
+                                    >
+                                        Login
+                                    </MuiLink>
+                                </Typography>
+                            </>
+
+                        ) :
+                            (
+                                <Typography>
+                                    <Button variant='contained' onClick={handleLogout}
+                                    >Logout</Button>
+                                </Typography>
+                            )}
                     </Stack>
                 </Toolbar>
             </AppBar>

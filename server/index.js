@@ -16,7 +16,7 @@ const corsOptions = {
     optionSuccessStatus: 200,
 }
 dotenv.config()
-//app imports
+//app imports 
 const app = express()
 app.use(cors(corsOptions))
 app.use(express.json({ limit: '50mb' }));

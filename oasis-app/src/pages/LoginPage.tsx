@@ -1,12 +1,14 @@
 import React, { FormEvent } from 'react';
 import { useState } from 'react';
 import { Box, Typography, TextField, Button, Grid } from '@mui/material';
-import { loginUser, FormData } from '../services/authFunctions';
+import { loginUser } from '../services/authFunctions';
 import { palette } from '@mui/system';
 import ErrorIcon from '@mui/icons-material/Error';
 import { useNavigate } from 'react-router-dom';
-import { AxiosError } from 'axios';
-
+import { useDispatch } from 'react-redux';
+import { setLogin } from '../state/redux';
+import { useSelector } from 'react-redux';
+import { AuthState } from '../state/redux';
 
 const LoginPage = () => {
     interface ErrorMessage {
@@ -16,16 +18,18 @@ const LoginPage = () => {
         },
         headers: string
     }
-    const initialFormData: FormData = {
+    const initialFormData = {
         email: "",
         password: ""
     }
-
-
+    const user = useSelector((state: { auth: AuthState }) => state.user);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    if (user) {
+        navigate("/");
+    }
     const [formData, updateFormData] = useState(initialFormData)
     const [error, setError] = useState<ErrorMessage | null>(null);
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         updateFormData({
@@ -38,7 +42,15 @@ const LoginPage = () => {
     const handleFormSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try {
-            const response = await loginUser(formData).then(data => { console.log(data) });
+            const response = await loginUser(formData).then(data => {
+                dispatch(
+                    setLogin({
+                        user: data.user,
+                        accessToken: data.accessToken,
+                        refreshToken: data.refreshToken,
+                    })
+                )
+            });
             console.log(response);
             navigate("/products");
         } catch (error: any) {

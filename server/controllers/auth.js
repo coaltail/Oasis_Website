@@ -39,7 +39,6 @@ export const registerNewUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
   try {
-    console.log("Logged in");
     const { email, password } = req.body;
     const user = await User.findOne({ email: email });
     if (!user) {
@@ -55,8 +54,11 @@ export const loginUser = async (req, res) => {
     const refreshToken = jwt.sign({ id: user._id }, process.env.JWT_TOKEN, { expiresIn: '24h' });
     res.cookie('accessToken', accessToken, { httpOnly: true, secure: true });
     res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: true });
+    console.log(user);
 
-    delete user.password;
+    user.password = undefined;
+    delete user['password'];
+    console.log(user);
 
     // Send the response after all processing is done
     res.status(200).json({ refreshToken, accessToken, user });

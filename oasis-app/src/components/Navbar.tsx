@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { AuthState } from '../state/redux';
 import { setLogout } from '../state/redux';
 import { useDispatch } from 'react-redux';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 const Navbar = () => {
     const user = useSelector((state: { auth: AuthState }) => state.user);
     const dispatch = useDispatch();
@@ -103,6 +104,12 @@ const Navbar = () => {
                                     >Logout</Button>
                                 </Typography>
                             )}
+                        <Button sx={{color: 'white', padding: '1rem'}}>
+
+                            <ShoppingCartIcon>
+
+                            </ShoppingCartIcon>
+                        </Button>
                     </Stack>
                 </Toolbar>
             </AppBar>

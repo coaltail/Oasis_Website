@@ -1,13 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container, Box, Button, Grid, Typography } from '@mui/material'
 import { Link } from 'react-router-dom';
 import macbook from '../assets/macbook-front.jpg';
 import axiosInstance from '../utils/axios'
+import { useSelector } from 'react-redux';
+import api from '../utils/axios'
 
 const HomePage = () => {
   const postTest = async () => {
     await axiosInstance.get("http://localhost:5050/auth/refresh");
   }
+  const user = useSelector((state) => state.user);
+  console.log(user);
+  useEffect(() => {
+    const refreshToken = async () => {
+      await api.get(`users/${user._id}`)
+        .then((data) => console.log(data));
+    }
+    refreshToken();
+  })
   return (
     <Box
       sx={{

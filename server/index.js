@@ -15,6 +15,8 @@ const corsOptions = {
     credentials: true,            //access-control-allow-credentials:true
     optionSuccessStatus: 200,
 }
+
+
 dotenv.config()
 //app imports 
 const app = express()
@@ -22,7 +24,6 @@ app.use(cors(corsOptions))
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser());
-
 // App routes, check routes folder to see endpoints
 app.use("/auth", authRoutes)
 app.use("/users", userRoutes);

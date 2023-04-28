@@ -9,8 +9,8 @@ const CreateProductPage = () => {
         productName: string,
         description: string,
         image: File | undefined,
-        price: string,
-        quantityInStock: number | null
+        price: number | undefined,
+        quantityInStock: number | undefined
     }
     const initialFormData = {
         productName: "",
@@ -34,10 +34,7 @@ const CreateProductPage = () => {
             const file = e.target.files[0];
             setFormData({
                 ...formData,
-                image: {
-                    data: file.name,
-                    contentType: file.type
-                }
+                image: file
             });
 
         }
@@ -46,7 +43,7 @@ const CreateProductPage = () => {
     const handleFormSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await api.post("/products/create", formData);
+            const response = await api.post("/products/create", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
             console.log(response);
             navigate("/products");
         }
@@ -129,7 +126,7 @@ const CreateProductPage = () => {
                             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                 <Box sx={{ flexGrow: 1 }}>
                                     <Typography variant="body1">
-                                        {formData.image ? formData.image.data : 'Upload photo'}
+                                        {formData.image ? formData.image.fileName : 'Upload photo'}
                                     </Typography>
                                 </Box>
                                 <Button variant="contained" component="span" sx={{ ml: 2 }}>

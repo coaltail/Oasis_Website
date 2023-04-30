@@ -5,17 +5,17 @@ import macbook from '../assets/macbook-front.jpg';
 import axiosInstance from '../utils/axios'
 import { useSelector } from 'react-redux';
 import api from '../utils/axios'
-
+import { motion } from 'framer-motion';
+import { slideIn } from '../utils/motion';
+import { AuthState } from '../state/redux'
 const HomePage = () => {
-  const postTest = async () => {
-    await axiosInstance.get("http://localhost:5050/auth/refresh");
-  }
-  const user = useSelector((state) => state.user);
-  console.log(user);
+  const user = useSelector((state: AuthState) => state.user);
   useEffect(() => {
     const refreshToken = async () => {
-      await api.get(`users/${user._id}`)
-        .then((data) => console.log(data));
+      if (user) {
+        await api.get(`users/${user._id}`)
+          .then((data) => console.log(data));
+      }
     }
     refreshToken();
   })
@@ -55,11 +55,10 @@ const HomePage = () => {
               <Button variant="contained" color="primary" sx={{ mt: 3 }}>
                 Explore Products
               </Button>
-              <Button onClick={postTest}>Test post</Button>
             </Link>
           </Box>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid component={motion.div} variants={slideIn('left', "spring", 0.2, 1)} item xs={12} sm={6}>
           <Box
             sx={{
               display: 'flex',

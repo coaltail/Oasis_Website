@@ -50,7 +50,7 @@ export const loginUser = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    const accessToken = jwt.sign({ id: user._id }, process.env.JWT_TOKEN, { expiresIn: '15m' });
+    const accessToken = jwt.sign({ id: user._id }, process.env.JWT_TOKEN, { expiresIn: '10s' });
     const refreshToken = jwt.sign({ id: user._id }, process.env.JWT_TOKEN, { expiresIn: '24h' });
     res.cookie('accessToken', accessToken, { httpOnly: true, secure: true });
     res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: true });

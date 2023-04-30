@@ -10,17 +10,21 @@ import HomePage from "./pages/HomePage.tsx";
 import RegisterPage from "./pages/RegisterPage.tsx";
 import ProductPage from "./pages/ProductPage.tsx";
 import CreateProductPage from "./pages/CreateProductPage.tsx";
+import { useSelector } from "react-redux";
+import { AuthState } from "./state/redux.ts";
+import PrivateRoute from "./components/PrivateRoute.tsx";
 function App() {
-
+  const user = useSelector((state: AuthState) => state.user);
+  console.log(user);
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<HomePage />}></Route>
-        <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="/register" element={<RegisterPage />}></Route>
-        <Route path="/products" element={<ProductPage />}></Route>
-        <Route path="/products/create" element={<CreateProductPage />} ></Route>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/products" element={<PrivateRoute user={user}><ProductPage /></PrivateRoute>} />
+        <Route path="/products/create" element={<PrivateRoute user={user}><CreateProductPage /></PrivateRoute>} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
       </Routes>
     </>
   );

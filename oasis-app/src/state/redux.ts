@@ -1,7 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export interface AuthState{
-    user: any,
+
+export interface User {
+    _id: string,
+    email: string,
+    firstName: string,
+    lastName: string,
+    paymentMethods: number[],
+    phone: string,
+    shippingAddress: string,
+    role: string
+}
+
+export interface AuthState {
+    user: User | null | undefined,
     accessToken: string | null,
     refreshToken: string | null
 }

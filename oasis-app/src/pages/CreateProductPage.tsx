@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Container, Box, TextField, Typography, FormControl, Grid, Button, Input, InputLabel } from '@mui/material';
 import api from '../utils/axios';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { AuthState } from '../state/redux';
 const CreateProductPage = () => {
     interface FormData {
         productName: string,
@@ -16,8 +17,8 @@ const CreateProductPage = () => {
         productName: "",
         description: "",
         image: undefined,
-        price: "",
-        quantityInStock: ""
+        price: undefined,
+        quantityInStock: undefined
     }
     const navigate = useNavigate();
     const [formData, setFormData] = useState<FormData>(initialFormData);
@@ -32,6 +33,7 @@ const CreateProductPage = () => {
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
             const file = e.target.files[0];
+            console.log(file)
             setFormData({
                 ...formData,
                 image: file
@@ -52,7 +54,7 @@ const CreateProductPage = () => {
         }
     }
 
-    const user = useSelector((state) => state.user) || null;
+    const user = useSelector((state: AuthState) => state.user) || null;
 
     useEffect(() => {
         if (!user || user.role != 'admin') {
@@ -126,7 +128,7 @@ const CreateProductPage = () => {
                             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                 <Box sx={{ flexGrow: 1 }}>
                                     <Typography variant="body1">
-                                        {formData.image ? formData.image.fileName : 'Upload photo'}
+                                        {formData.image ? formData.image.name : 'Upload photo'}
                                     </Typography>
                                 </Box>
                                 <Button variant="contained" component="span" sx={{ ml: 2 }}>

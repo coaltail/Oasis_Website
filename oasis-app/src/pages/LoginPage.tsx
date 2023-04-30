@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import { FormEvent } from 'react';
 import { useState } from 'react';
 import { Box, Typography, TextField, Button, Grid } from '@mui/material';
 import { loginUser } from '../services/authFunctions';
@@ -7,8 +7,6 @@ import ErrorIcon from '@mui/icons-material/Error';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setLogin } from '../state/redux';
-import { useSelector } from 'react-redux';
-import { AuthState } from '../state/redux';
 
 const LoginPage = () => {
     interface ErrorMessage {
@@ -22,12 +20,8 @@ const LoginPage = () => {
         email: "",
         password: ""
     }
-    const user = useSelector((state: { auth: AuthState }) => state.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    if (user) {
-        navigate("/");
-    }
     const [formData, updateFormData] = useState(initialFormData)
     const [error, setError] = useState<ErrorMessage | null>(null);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

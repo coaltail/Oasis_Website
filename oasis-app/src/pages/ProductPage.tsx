@@ -10,7 +10,7 @@ const ProductPage = () => {
     const [products, setProducts] = useState<ProductData[]>([]);
     interface ProductData {
         _id: string;
-        name: string;
+        productName: string;
         price: number;
         image: any;
     }
@@ -41,7 +41,7 @@ const ProductPage = () => {
                     <Product key={product._id}
                         name={product.productName}
                         price={product.price}
-                        image={`data:image/jpeg;base64,${btoa(String.fromCharCode(...new Uint8Array(product.image.data)))}`}
+                        image={`data:image/jpeg;base64,${window.btoa(String.fromCharCode(...new Uint8Array(product.image.data)))}`}
                         onClick={() => navigate(`/products/${product._id}`)}
                     />
                 ))}

@@ -13,7 +13,7 @@ export const createNewProduct = async (req, res) => {
         const newProduct = new Product({
             productName,
             description,
-            image: req.file.buffer,
+            image: req.file.filename,
             price,
             quantityInStock
         })

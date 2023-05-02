@@ -116,11 +116,11 @@ const CreateProductPage = () => {
                         </Grid>
                     </Grid>
                     <Grid item xs={12} sx={{ mt: 4 }}>
-                        <label htmlFor="upload-photo">
+                        <label htmlFor="image">
                             <input
                                 style={{ display: 'none' }}
-                                id="upload-photo"
-                                name="upload-photo"
+                                id="image"
+                                name="image"
                                 type="file"
                                 onChange={handleImageChange}
                             />

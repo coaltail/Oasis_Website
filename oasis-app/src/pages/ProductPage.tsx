@@ -41,7 +41,7 @@ const ProductPage = () => {
                     <Product key={product._id}
                         name={product.productName}
                         price={product.price}
-                        image={`data:image/jpeg;base64,${window.btoa(String.fromCharCode(...new Uint8Array(product.image.data)))}`}
+                        image={`./src/assets/productPhotos/${product.image}`}
                         onClick={() => navigate(`/products/${product._id}`)}
                     />
                 ))}

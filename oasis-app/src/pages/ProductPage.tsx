@@ -12,7 +12,7 @@ const ProductPage = () => {
         _id: string;
         productName: string;
         price: number;
-        image: any;
+        image: string;
     }
 
     useEffect(() => {
@@ -22,31 +22,35 @@ const ProductPage = () => {
                     "/products"
                 );
                 setProducts(response.data);
-                console.log(response.data)
             } catch (error) {
-                console.error(error);
+                console.log(error);
             }
         };
         fetchProducts();
-    }, []);
+    }, [products]);
 
 
     return (
-        <Container>
-            <Box display="flex"
-                justifyContent="center"
-                alignItems="center"
-                minHeight="100vh">
-                {products.map((product) => (
-                    <Product key={product._id}
+        <Grid container
+            spacing={4}
+            justifyContent="center"
+            sx={{
+                paddingLeft: "40px",
+                paddingRight: "40px",
+                mt: 12
+            }}>
+            {products.map((product) => (
+                <Grid item xs={12} sm={6} md={4} key={product._id}>
+                    <Product
                         name={product.productName}
                         price={product.price}
                         image={`./src/assets/productPhotos/${product.image}`}
                         onClick={() => navigate(`/products/${product._id}`)}
+
                     />
-                ))}
-            </Box>
-        </Container>
+                </Grid>
+            ))}
+        </Grid>
     )
 }
 

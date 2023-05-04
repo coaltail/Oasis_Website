@@ -1,29 +1,36 @@
-import { FormEvent } from 'react';
+import { FormEvent, useEffect } from 'react';
 import { useState } from 'react';
-import { Box, Typography, TextField, Button, Grid } from '@mui/material';
+import { Box, Typography, TextField, Button, Grid, Link, Container, Avatar, CssBaseline, Alert } from '@mui/material';
 import { loginUser } from '../services/authFunctions';
 import { palette } from '@mui/system';
 import ErrorIcon from '@mui/icons-material/Error';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setLogin } from '../state/redux';
-
+import LockIcon from '@mui/icons-material/Lock';
+import { useLocation } from 'react-router-dom';
+import Copyright from '../components/Copyright';
 const LoginPage = () => {
     interface ErrorMessage {
-        config: string,
-        data: {
-            message: string
-        },
-        headers: string
+        errorMessage: string
     }
     const initialFormData = {
         email: "",
         password: ""
     }
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
+    console.log(location);
+    const message = location?.state
     const [formData, updateFormData] = useState(initialFormData)
     const [error, setError] = useState<ErrorMessage | null>(null);
+    useEffect(() => {
+        if (message) {
+            setError({ errorMessage: message });
+        }
+    }, [message]);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         updateFormData({
@@ -31,8 +38,6 @@ const LoginPage = () => {
             [e.target.name]: value
         });
     };
-
-
     const handleFormSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try {
@@ -48,120 +53,78 @@ const LoginPage = () => {
             console.log(response);
             navigate("/products");
         } catch (error: any) {
-            if (error.response) {
-                setError({
-                    config: error.config,
-                    data: {
-                        message: error.response.data.message,
-                    },
-                    headers: error.response.headers,
-                });
-            } else if (error.message) {
-                setError({
-                    config: error.config,
-                    data: {
-                        message: error.message,
-                    },
-                    headers: error.headers,
-                });
-            }
+            const errorMessage =
+                error.response?.data?.message || error.message || "Unknown error";
+            setError({ errorMessage });
         }
     }
     return (
-        <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            minHeight="100vh"
-        >
-
+        <Container component="main" maxWidth="xs" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', flexDirection: 'column' }}>
+            <CssBaseline />
             <Box
                 sx={{
-                    height: 400,
-                    boxShadow: 3,
-                    width: 400,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                }}>
-                <Typography component="h1" variant="h4" sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    mt: 2,
-                }}>
-                    <b>Sign in</b>
+                    marginTop: 8,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >
+                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                    <LockIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Sign in
                 </Typography>
-                {error &&
-                    <Box sx={{
-                        bgcolor: 'error.main',
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        borderRadius: 4,
-                        p: 2,
-                        mt: 2,
-                        boxShadow: 3,
-                        width: '85%',
-                    }}>
-                        <ErrorIcon sx={{ color: '#fff', mr: 2 }} />
-                        <Typography sx={{ color: '#fff', fontWeight: 'bold' }}>
-                            {error.data.message}
-                        </Typography></Box>}
-
-                <Box component="form"
-                    onSubmit={handleFormSubmit}
-                    sx={{
-                        height: 500,
-                        width: 400,
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center"
-                    }}>
-                    <Box sx={{ width: '85%' }}>
-
-
-                        <TextField
-                            required
-                            label="E-mail"
-                            name='email'
-                            id='email'
-                            sx={
-                                { mb: 2, width: "100%" }
-                            }
-                            onChange={handleChange}
-                        />
-                        <TextField
-                            required
-                            type='password'
-                            name='password'
-                            id='password'
-                            label="Password"
-                            sx={
-                                { mb: 2, width: "100%" }
-                            }
-                            onChange={handleChange}
-
-                        />
-                        <Grid container spacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-
-                        }}>
-                            <Grid item xs={6}>
-                                <Button variant='contained' sx={{ width: '100%' }} type='submit'>Login</Button>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Button variant='contained' sx={{ width: '100%' }}>Sign up</Button>
-                            </Grid>
+                {error && (
+                    <Alert severity="error" sx={{ mt: 2, mb: 2, width: '100%', display: 'flex', justifyContent: 'center' }}>{error.errorMessage}</Alert>
+                )}
+                <Box component="form" onSubmit={handleFormSubmit} sx={{ mt: 1 }}>
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        autoComplete="email"
+                        autoFocus
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        onChange={handleChange}
+                    />
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                    >
+                        Sign In
+                    </Button>
+                    <Grid container>
+                        <Grid item xs>
+                            <Link href="#" variant="body2">
+                                Forgot password?
+                            </Link>
                         </Grid>
-
-                    </Box>
+                        <Grid item>
+                            <Link href="#" variant="body2">
+                                {"Don't have an account? Sign Up"}
+                            </Link>
+                        </Grid>
+                    </Grid>
                 </Box>
             </Box>
-        </Box>
+            <Copyright sx={{ mt: 8, mb: 4 }} />
+        </Container>
     )
 }
 

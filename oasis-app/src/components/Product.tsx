@@ -1,5 +1,7 @@
 import React from "react";
 import {
+    Box,
+    Grid,
     Card,
     CardActionArea,
     CardContent,
@@ -7,6 +9,7 @@ import {
     Typography,
 } from "@mui/material";
 import { useEffect } from "react";
+import { makeStyles } from "@mui/styles";
 
 interface Props {
     name: string;
@@ -14,32 +17,41 @@ interface Props {
     image: string;
     onClick: () => void;
 }
+const useStyles = makeStyles({
+    root: {
+        minWidth: 200,
+        maxwidth: 280
+    },
+    title: {
+        fontSize: 14
+    },
+    pos: {
+        marginBottom: 12
+    }
+});
 
 const Product: React.FC<Props> = ({ name, price, image, onClick }: Props) => {
+    const classes = useStyles();
+
     return (
-        <Card
+        <Card className={classes.root}
             sx={{
                 transition: "all 0.2s ease-in-out",
                 "&:hover": {
                     border: "1px solid #ccc",
                     boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.2)",
                 },
-                width: 300,
-                height: 400,
-                margin: 2,
                 cursor: "pointer",
+                margin: "0 auto",
+                padding: "0.1em",
             }}
             onClick={onClick}
             variant="outlined"
         >
             <CardMedia
                 component="img"
-                sx={{
-                    height: "70%",
-                    width: "100%",
-                    objectFit: "contain",
-                    mt: 2,
-                }}
+                height="250"
+                sx={{ padding: "1em 1em 0 1em", objectFit: "contain" }}
                 image={image}
                 title={name}
             />

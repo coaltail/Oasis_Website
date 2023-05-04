@@ -1,5 +1,4 @@
-import { AppBar, CssBaseline, Typography, Toolbar, IconButton, List, ListItem, ListItemButton, ListItemText, Divider, Stack, Link as MuiLink, Button } from '@mui/material';
-import Box from '@mui/material/Box/Box';
+import { Box, AppBar, CssBaseline, Typography, Toolbar, IconButton, List, ListItem, ListItemButton, ListItemText, Divider, Stack, Link as MuiLink, Button } from '@mui/material';
 import EngineeringRoundedIcon from '@mui/icons-material/EngineeringRounded';
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
@@ -19,7 +18,7 @@ const Navbar = () => {
     };
     return (
         <>
-            <CssBaseline />
+
             <AppBar sx={{ bgcolor: '#212121' }}>
                 <Toolbar>
                     <Box sx={{ flexGrow: 1 }}>

@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
-import { Container, Box, Button, Grid, Typography } from '@mui/material'
+import { Box, Container, Button, Grid, Typography } from '@mui/material'
 import { Link } from 'react-router-dom';
 import macbook from '../assets/macbook-front.jpg';
 import axiosInstance from '../utils/axios'
 import { useSelector } from 'react-redux';
 import api from '../utils/axios'
 import { motion } from 'framer-motion';
-import { slideIn } from '../utils/motion';
 import { AuthState } from '../state/redux'
 const HomePage = () => {
   const user = useSelector((state: AuthState) => state.user);
@@ -58,7 +57,7 @@ const HomePage = () => {
             </Link>
           </Box>
         </Grid>
-        <Grid component={motion.div} variants={slideIn('left', "spring", 0.2, 1)} item xs={12} sm={6}>
+        <Grid item xs={12} sm={6}>
           <Box
             sx={{
               display: 'flex',

@@ -1,22 +1,24 @@
 import React, { FormEvent } from 'react';
 import { useState } from 'react';
-import { Box, Typography, TextField, Button, Grid } from '@mui/material';
-import { loginUser, FormData, RegisterData } from '../services/authFunctions';
-import { palette } from '@mui/system';
-import ErrorIcon from '@mui/icons-material/Error';
+import { Box, Typography, TextField, Button, Grid, Avatar, CssBaseline, Container, Link, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import axios from 'axios';
-
-
+import LockIcon from '@mui/icons-material/Lock';
+import Copyright from '../components/Copyright';
 const RegisterPage = () => {
 
     interface ErrorMessage {
-        config: string,
-        data: {
-            message: string
-        },
-        headers: string
+        errorMessage: string
+    }
+    interface RegisterData {
+        firstName: string,
+        lastName: string,
+        email: string,
+        password: string,
+        shippingAddress: string,
+        billingAddress: string,
+        phone: string,
     }
 
     const initialFormData: RegisterData = {
@@ -32,7 +34,7 @@ const RegisterPage = () => {
 
     const navigate = useNavigate();
     const [formData, updateFormData] = useState(initialFormData)
-    const [error, setError] = useState<ErrorMessage | null>(null);
+    const [error, setError] = useState<ErrorMessage | null>();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -47,171 +49,137 @@ const RegisterPage = () => {
         console.log(formData);
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:5050/auth/register", formData );
+            const response = await axios.post("http://localhost:5050/auth/register", formData);
             console.log(response);
             navigate("/home");
         } catch (error: any) {
-            if (error.response) {
-                setError({
-                    config: error.config,
-                    data: {
-                        message: error.response.data.message,
-                    },
-                    headers: error.response.headers,
-                });
-            } else if (error.message) {
-                setError({
-                    config: error.config,
-                    data: {
-                        message: error.message,
-                    },
-                    headers: error.headers,
-                });
-            }
+            const errorMessage =
+                error.response?.data?.message || error.message || "Unknown error";
+            setError({ errorMessage });
         }
     }
     return (
-        <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            minHeight="100vh"
-        >
 
+        <Container component="main" maxWidth="xs" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', flexDirection: 'column' }}>
+            <CssBaseline />
             <Box
                 sx={{
-                    boxShadow: 3,
-                    width: 400,
-                    height: 650,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                }}>
-                <Typography component="h1" variant="h4" sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    mt: 2,
-                }}>
-                    <b>Sign in</b>
+                    marginTop: 8,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >
+                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                    <LockIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Sign up
                 </Typography>
-                {error &&
-                    <Box sx={{
-                        bgcolor: 'error.main',
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        borderRadius: 4,
-                        p: 2,
-                        mt: 2,
-                        boxShadow: 3,
-                        width: '85%',
-                    }}>
-                        <ErrorIcon sx={{ color: '#fff', mr: 2 }} />
-                        <Typography sx={{ color: '#fff', fontWeight: 'bold' }}>
-                            {error.data.message}
-                        </Typography></Box>}
-
-                <Box component="form"
-                    onSubmit={handleFormSubmit}
-                    sx={{
-                        height: 650,
-                        width: 400,
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center"
-                    }}>
-                    <Box sx={{ width: '85%' }}>
-                        <TextField
-                            required
-                            label="First Name"
-                            name='firstName'
-                            id='fname'
-                            sx={
-                                { mb: 2, width: "100%" }
-                            }
-                            onChange={handleChange}
-                        />
-                        <TextField
-                            required
-                            label="Last Name"
-                            name='lastName'
-                            id='lname'
-                            sx={
-                                { mb: 2, width: "100%" }
-                            }
-                            onChange={handleChange}
-                        />
-
-
-                        <TextField
-                            required
-                            label="E-mail"
-                            name='email'
-                            id='email'
-                            sx={
-                                { mb: 2, width: "100%" }
-                            }
-                            onChange={handleChange}
-                        />
-                        <TextField
-                            required
-                            type='password'
-                            name='password'
-                            id='password'
-                            label="Password"
-                            sx={
-                                { mb: 2, width: "100%" }
-                            }
-                            onChange={handleChange}
-
-                        />
-                        <TextField
-                            required
-                            label="Shipping Address"
-                            name='shippingAddress'
-                            id='shippingAddress'
-                            sx={
-                                { mb: 2, width: "100%" }
-                            }
-                            onChange={handleChange}
-                        />
-                        <TextField
-                            required
-                            label="Billing Address"
-                            name='billingAddress'
-                            id='billingAddress'
-                            sx={
-                                { mb: 2, width: "100%" }
-                            }
-                            onChange={handleChange}
-                        />
-                        <TextField
-                            required
-                            label="Phone"
-                            name='phone'
-                            id='phone'
-                            sx={
-                                { mb: 2, width: "100%" }
-                            }
-                            onChange={handleChange}
-                        />
-                        <Grid container spacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-
-                        }}>
-                            <Grid item xs={12}>
-                                <Button variant='contained' sx={{ width: '100%' }} type='submit'>Sign up</Button>
-                            </Grid>
+                {error && (
+                    <Alert severity="error" sx={{ mt: 2, mb: 2, width: '100%', display: 'flex', justifyContent: 'center' }}>{error.errorMessage}</Alert>
+                )}
+                <Box component="form" noValidate onSubmit={handleFormSubmit} sx={{ mt: 3 }}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                autoComplete="given-name"
+                                name="firstName"
+                                required
+                                fullWidth
+                                id="firstName"
+                                label="First Name"
+                                autoFocus
+                                onChange={handleChange}
+                            />
                         </Grid>
-
-                    </Box>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                fullWidth
+                                id="lastName"
+                                label="Last Name"
+                                name="lastName"
+                                autoComplete="family-name"
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                fullWidth
+                                id="email"
+                                label="Email Address"
+                                name="email"
+                                autoComplete="email"
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                                autoComplete="new-password"
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                name="shippingAddress"
+                                required
+                                fullWidth
+                                id="shippingAddress"
+                                label="Shipping Address"
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                name="billingAddress"
+                                required
+                                fullWidth
+                                id="billingAddress"
+                                label="Billing Address"
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                name="phone"
+                                required
+                                type='phone'
+                                fullWidth
+                                id="phone"
+                                label="Phone"
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                        </Grid>
+                    </Grid>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                    >
+                        Sign Up
+                    </Button>
+                    <Grid container justifyContent="flex-end">
+                        <Grid item>
+                            <Link href="/login" variant="body2">
+                                Already have an account? Sign in
+                            </Link>
+                        </Grid>
+                    </Grid>
                 </Box>
             </Box>
-        </Box>
+            <Copyright sx={{ mt: 5 }} />
+        </Container>
     )
 }
 

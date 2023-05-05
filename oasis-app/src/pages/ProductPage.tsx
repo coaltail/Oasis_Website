@@ -3,18 +3,14 @@ import Product from '../components/Product'
 import { Box, Container, Grid, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import macbook from '../assets/macbook-front.jpg';
-
+import { ProductData, addItem } from '../state/reduxCart';
 import api from '../utils/axios';
+import { useDispatch, useSelector } from 'react-redux';
 const ProductPage = () => {
     const navigate = useNavigate();
     const [products, setProducts] = useState<ProductData[]>([]);
-    interface ProductData {
-        _id: string;
-        productName: string;
-        price: number;
-        image: string;
-    }
-
+    const dispatch = useDispatch();
+    const cart = useSelector((state) => state.cart);
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -27,9 +23,11 @@ const ProductPage = () => {
             }
         };
         fetchProducts();
-    }, [products]);
+    }, []);
 
-
+    const handleAddToCart = (product: ProductData) => {
+        dispatch(addItem({ product: product, _id: product._id }));
+    };
     return (
         <Grid container
             spacing={4}
@@ -45,7 +43,7 @@ const ProductPage = () => {
                         name={product.productName}
                         price={product.price}
                         image={`./src/assets/productPhotos/${product.image}`}
-                        onClick={() => navigate(`/products/${product._id}`)}
+                        onClick={() => handleAddToCart(product)}
 
                     />
                 </Grid>

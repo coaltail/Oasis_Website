@@ -8,7 +8,8 @@ import api from '../utils/axios'
 import { motion } from 'framer-motion';
 import { AuthState } from '../state/redux'
 const HomePage = () => {
-  const user = useSelector((state: AuthState) => state.user);
+  const user = useSelector((state) => state.user.user);
+  console.log(user);
   useEffect(() => {
     const refreshToken = async () => {
       if (user) {

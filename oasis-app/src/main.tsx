@@ -4,7 +4,8 @@ import App from './App.tsx'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import authReducer from './state/redux.ts'
-import { configureStore } from '@reduxjs/toolkit';
+import cartReducer from './state/reduxCart.ts';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import {
   persistStore,
@@ -19,10 +20,15 @@ import {
 import storage from 'redux-persist/lib/storage'
 import { PersistGate } from 'redux-persist/integration/react';
 
-const persistConfig = { key: "root", storage, version: 1 };
+const persistConfig = { key: "user", storage, version: 1 };
+const cartPersistConfig = { key: "cart", storage, version: 1 };
 const persistedReducer = persistReducer(persistConfig, authReducer);
+const rootReducer = combineReducers({
+  cart: persistReducer(cartPersistConfig, cartReducer),
+  user: persistedReducer,
+})
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

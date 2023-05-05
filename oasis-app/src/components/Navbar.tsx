@@ -6,13 +6,17 @@ import { AuthState } from '../state/redux';
 import { setLogout } from '../state/redux';
 import { useDispatch } from 'react-redux';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-
+import ShoppingCart from './ShoppingCart';
+import { useState } from 'react'
+import { clearCart } from '../state/reduxCart';
 const Navbar = () => {
-    const user = useSelector((state: { auth: AuthState }) => state.user);
+    const user = useSelector((state) => state.user.user);
+    const cart = useSelector((state) => state.cart.cartItems);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleLogout = () => {
         dispatch(setLogout());
+        dispatch(clearCart());
         navigate("/");
 
     };
@@ -107,12 +111,7 @@ const Navbar = () => {
                                     >Logout</Button>
                                 </Typography>
                             )}
-                        <Button sx={{ color: 'white', padding: '1rem' }}>
-
-                            <ShoppingCartIcon>
-
-                            </ShoppingCartIcon>
-                        </Button>
+                        {cart.length > 0 && <ShoppingCart />}
                     </Stack>
                 </Toolbar>
             </AppBar>

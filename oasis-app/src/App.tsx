@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 import { AuthState } from "./state/redux.ts";
 import PrivateRoute from "./components/PrivateRoute.tsx";
 function App() {
-  const user = useSelector((state: AuthState) => state.user);
+  const user = useSelector((state) => state.user.user);
   return (
     <>
       <Navbar />

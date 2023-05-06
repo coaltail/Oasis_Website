@@ -9,6 +9,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ShoppingCart from './ShoppingCart';
 import { useState } from 'react'
 import { clearCart } from '../state/reduxCart';
+import { BeachAccess } from '@mui/icons-material';
 const Navbar = () => {
     const user = useSelector((state) => state.user.user);
     const cart = useSelector((state) => state.cart.cartItems);
@@ -21,101 +22,97 @@ const Navbar = () => {
 
     };
     return (
-        <>
-
-            <AppBar sx={{ bgcolor: '#212121' }}>
-                <Toolbar>
-                    <Box sx={{ flexGrow: 1 }}>
-                        <IconButton
-                            size="large"
-                            edge="start"
-                            color="inherit"
-                            aria-label="menu"
-                            sx={{ mr: 2 }}
+        <AppBar position="static" sx={{ bgcolor: '#3E8C6F' }}>
+            <Toolbar sx={{ justifyContent: 'space-between' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <BeachAccess />
+                    <Typography variant="h5" sx={{ flexGrow: 1, color: 'white', ml: 2 }}>
+                        <MuiLink
+                            component={Link}
+                            to="/"
+                            sx={{
+                                color: 'white',
+                                textDecoration: 'none',
+                                '&:hover': {
+                                    textDecoration: 'none',
+                                    color: '#5AB5A5',
+                                    transition: '0.3s ease-out',
+                                },
+                            }}
                         >
-                            <EngineeringRoundedIcon />
-                        </IconButton>
-                        <Typography variant='h5' sx={{ display: 'inline-block', verticalAlign: 'middle' }}>
-                            <MuiLink
-                                component={Link}
-                                to='/'
-                                sx={{
-                                    color: '#fff',
+                            Oasis
+                        </MuiLink>
+                    </Typography>
+                </Box>
+                <Stack direction="row" spacing={2} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <Typography>
+                        <MuiLink
+                            component={Link}
+                            to="/products"
+                            sx={{
+                                color: 'white',
+                                textDecoration: 'none',
+                                '&:hover': {
                                     textDecoration: 'none',
-                                    '&:hover': {
-                                        textDecoration: 'underline',
-                                    },
-                                }}
-                            >
-                                Oasis
-                            </MuiLink>
-                        </Typography>
-                    </Box>
-                    <Stack direction='row' spacing={2} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                    color: '#5AB5A5',
+                                    transition: '0.3s ease-out',
+                                },
+                            }}
+                        >
+                            Products
+                        </MuiLink>
+                    </Typography>
+                    {!user ? (
+                        <>
+                            <Typography>
+                                <MuiLink
+                                    component={Link}
+                                    to="/register"
+                                    sx={{
+                                        color: 'white',
+                                        textDecoration: 'none',
+                                        '&:hover': {
+                                            textDecoration: 'underline',
+                                        },
+                                    }}
+                                >
+                                    Register
+                                </MuiLink>
+                            </Typography>
+                            <Typography>
+                                <MuiLink
+                                    component={Link}
+                                    to="/login"
+                                    sx={{
+                                        color: 'white',
+                                        textDecoration: 'none',
+                                        '&:hover': {
+                                            textDecoration: 'underline',
+                                        },
+                                    }}
+                                >
+                                    Login
+                                </MuiLink>
+                            </Typography>
+                        </>
+                    ) : (
                         <Typography>
-                            <MuiLink
-                                component={Link}
-                                to='/products'
-                                sx={{
+                            <Button variant="contained" onClick={handleLogout} sx={{
+                                bgcolor: '#fff',
+                                color: '#3E8C6F',
+                                '&:hover': {
+                                    bgcolor: '#3E8C6F',
                                     color: '#fff',
-                                    textDecoration: 'none',
-                                    '&:hover': {
-                                        textDecoration: 'underline',
-                                    },
-                                }}
-                            >
-                                Products
-                            </MuiLink>
+                                },
+                            }}>
+                                Logout
+                            </Button>
                         </Typography>
-
-                        {!user ? (
-                            <>
-
-
-                                <Typography>
-                                    <MuiLink
-                                        component={Link}
-                                        to='/register'
-                                        sx={{
-                                            color: '#fff',
-                                            textDecoration: 'none',
-                                            '&:hover': {
-                                                textDecoration: 'underline',
-                                            },
-                                        }}
-                                    >
-                                        Register
-                                    </MuiLink>
-                                </Typography>
-                                <Typography>
-                                    <MuiLink
-                                        component={Link}
-                                        to='/login'
-                                        sx={{
-                                            color: '#fff',
-                                            textDecoration: 'none',
-                                            '&:hover': {
-                                                textDecoration: 'underline',
-                                            },
-                                        }}
-                                    >
-                                        Login
-                                    </MuiLink>
-                                </Typography>
-                            </>
-
-                        ) :
-                            (
-                                <Typography>
-                                    <Button variant='contained' onClick={handleLogout}
-                                    >Logout</Button>
-                                </Typography>
-                            )}
-                        {cart.length > 0 && <ShoppingCart />}
-                    </Stack>
-                </Toolbar>
-            </AppBar>
-        </>
+                    )}
+                    {cart.length > 0 && <ShoppingCart />}
+                </Stack>
+            </Toolbar>
+        </AppBar>
     )
 }
 

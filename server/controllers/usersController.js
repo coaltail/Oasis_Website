@@ -8,6 +8,8 @@ export const getCurrentUser = async (req, res) => {
         if (!findUser) {
             res.status(500).json({ message: "Could not find the user. " });
         }
+        delete findUser.password;
+        findUser.password = ""
         res.status(200).send(findUser);
     }
     catch (err) {

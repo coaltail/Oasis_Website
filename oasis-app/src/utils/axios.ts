@@ -17,7 +17,7 @@ instance.interceptors.response.use(resp => resp, async err => {
   if ((err.response.status === 401) && !err.response.config.retry) {
     err.response.config.retry = true;
     try {
-      const response = await   instance.get("/auth/refresh");
+      const response = await instance.get("/auth/refresh");
       if (response.status === 200) {
         return instance(err.response.config);
       }

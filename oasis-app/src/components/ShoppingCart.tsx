@@ -33,7 +33,15 @@ const ShoppingCart = () => {
     <>
       <IconButton color="inherit" onClick={handleToggleDrawer} sx={{ mr: 1 }}>
         <Badge badgeContent={cartItems.length} color="secondary">
-          <ShoppingCartIcon />
+          <ShoppingCartIcon sx={{
+            color: 'white',
+            textDecoration: 'none',
+            '&:hover': {
+              textDecoration: 'none',
+              color: '#5AB5A5',
+              transition: '0.3s ease-out',
+            },
+          }} />
         </Badge>
       </IconButton>
       <Drawer
@@ -68,7 +76,13 @@ const ShoppingCart = () => {
           >
             <CloseIcon />
           </IconButton>
-          <Button variant="contained" onClick={() => dispatch(clearCart())}>Clear cart Items</Button>
+          <Button variant="contained" sx={{
+            backgroundColor: '#3E8C6F',
+            color: 'white',
+            '&:hover': {
+              backgroundColor: '#2C6F51',
+            },
+          }} onClick={() => dispatch(clearCart())}>Clear cart Items</Button>
 
         </Box>
         <List>

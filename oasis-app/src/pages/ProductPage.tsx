@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import Product from '../components/Product'
 import { Box, Container, Grid, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import macbook from '../assets/macbook-front.jpg';
 import { ProductData, addItem } from '../state/reduxCart';
 import api from '../utils/axios';
 import { useDispatch, useSelector } from 'react-redux';
@@ -44,7 +43,7 @@ const ProductPage = () => {
                         price={product.price}
                         image={`./src/assets/productPhotos/${product.image}`}
                         onClick={() => handleAddToCart(product)}
-
+                        onNavigate={() => navigate(`products/${product._id}`)}
                     />
                 </Grid>
             ))}

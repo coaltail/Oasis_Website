@@ -13,10 +13,12 @@ import CreateProductPage from "./pages/CreateProductPage.tsx";
 import { useSelector } from "react-redux";
 import { AuthState } from "./state/redux.ts";
 import PrivateRoute from "./components/PrivateRoute.tsx";
+import { CssBaseline } from "@mui/material";
 function App() {
   const user = useSelector((state) => state.user.user);
   return (
     <>
+      <CssBaseline />
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />

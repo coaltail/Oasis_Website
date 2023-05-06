@@ -7,15 +7,16 @@ import {
     CardContent,
     CardMedia,
     Typography,
+    Button
 } from "@mui/material";
 import { useEffect } from "react";
 import { makeStyles } from "@mui/styles";
-
 interface Props {
     name: string;
     price: number;
     image: string;
     onClick: () => void;
+    onNavigate: () => void;
 }
 const useStyles = makeStyles({
     root: {
@@ -30,9 +31,12 @@ const useStyles = makeStyles({
     }
 });
 
-const Product: React.FC<Props> = ({ name, price, image, onClick }: Props) => {
+const Product: React.FC<Props> = ({ name, price, image, onClick, onNavigate }: Props) => {
     const classes = useStyles();
-
+    const handleAddToCartClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation();
+        onClick();
+    }
     return (
         <Card className={classes.root}
             sx={{
@@ -45,8 +49,8 @@ const Product: React.FC<Props> = ({ name, price, image, onClick }: Props) => {
                 margin: "0 auto",
                 padding: "0.1em",
             }}
-            onClick={onClick}
             variant="outlined"
+            onClick={onNavigate}
         >
             <CardMedia
                 component="img"
@@ -55,13 +59,27 @@ const Product: React.FC<Props> = ({ name, price, image, onClick }: Props) => {
                 image={image}
                 title={name}
             />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                    {name}
-                </Typography>
-                <Typography variant="h5" color="textPrimary" component="p">
-                    ${price}
-                </Typography>
+            <CardContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Grid container sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Grid item xs={6}>
+                        <Typography gutterBottom variant="h5" component="h2">
+                            {name}
+                        </Typography>
+                        <Typography variant="h5" color="textPrimary" component="p">
+                            ${price}
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                        <Button variant="contained"
+                            sx={{
+                                backgroundColor: '#3E8C6F',
+                                color: 'white',
+                                '&:hover': {
+                                    backgroundColor: '#2C6F51',
+                                },
+                            }} onClick={handleAddToCartClick}>Add to Cart</Button>
+                    </Grid>
+                </Grid>
             </CardContent>
         </Card>
     );

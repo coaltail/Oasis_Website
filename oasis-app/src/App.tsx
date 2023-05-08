@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { AuthState } from "./state/redux.ts";
 import PrivateRoute from "./components/PrivateRoute.tsx";
 import { CssBaseline } from "@mui/material";
+import SingleProductPage from "./pages/SingleProductPage.tsx";
 function App() {
   const user = useSelector((state) => state.user.user);
   return (
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<PrivateRoute message="You must be logged in to view this page. " user={user}><ProductPage /></PrivateRoute>} />
+        <Route path="/products/:id" element={<SingleProductPage />} />
         <Route path="/products/create" element={<PrivateRoute message="You must be logged in to view this page. " user={user}><CreateProductPage /></PrivateRoute>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />

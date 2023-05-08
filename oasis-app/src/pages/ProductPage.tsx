@@ -34,7 +34,7 @@ const ProductPage = () => {
             sx={{
                 paddingLeft: "40px",
                 paddingRight: "40px",
-                mt: 12
+                mt: 2
             }}>
             {products.map((product) => (
                 <Grid item xs={12} sm={6} md={4} key={product._id}>
@@ -43,7 +43,7 @@ const ProductPage = () => {
                         price={product.price}
                         image={`./src/assets/productPhotos/${product.image}`}
                         onClick={() => handleAddToCart(product)}
-                        onNavigate={() => navigate(`products/${product._id}`)}
+                        onNavigate={() => navigate(`${product._id}`)}
                     />
                 </Grid>
             ))}

@@ -109,7 +109,7 @@ const Navbar = () => {
                             </Button>
                         </Typography>
                     )}
-                    {cart.length > 0 && <ShoppingCart />}
+                    <ShoppingCart />
                 </Stack>
             </Toolbar>
         </AppBar>

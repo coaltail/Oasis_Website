@@ -55,7 +55,7 @@ const Product: React.FC<Props> = ({ name, price, image, onClick, onNavigate }: P
             <CardMedia
                 component="img"
                 height="250"
-                sx={{ padding: "1em 1em 0 1em", objectFit: "contain" }}
+                sx={{ objectFit: "contain" }}
                 image={image}
                 title={name}
             />

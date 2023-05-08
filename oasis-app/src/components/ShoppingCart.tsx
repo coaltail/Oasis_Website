@@ -23,7 +23,7 @@ import { clearCart } from "../state/reduxCart";
 
 const ShoppingCart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
-  console.log(cartItems);
+  console.log("Cart items: ", cartItems);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const handleToggleDrawer = () => {
@@ -98,7 +98,7 @@ const ShoppingCart = () => {
                 </Box>
               </ListItemIcon>
               <ListItemText sx={{ ml: 2, width: '50%' }} primary={item.product.productName} secondary={`$${item.product.price}`} />
-              <ListItemText sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '50%' }}><Typography>{item.quantity}</Typography></ListItemText>
+              {item.quantity > 0 && <ListItemText sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '50%' }}><Typography>{item.quantity}</Typography></ListItemText>}
             </ListItem>
           ))}
         </List>

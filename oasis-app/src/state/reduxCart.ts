@@ -4,6 +4,7 @@ export interface ProductData {
     productName: string;
     price: number;
     image: string;
+    description: string;
 }
 export interface CartItem {
     product: ProductData
@@ -46,10 +47,13 @@ const cartSlice = createSlice({
             state.cartItems = state.cartItems.filter((items) => items.product._id !== _id);
         },
         updateQuantityInCart: (state, action) => {
-            const { _id, quantity } = action.payload;
-            const foundIndex = state.cartItems.find((item) => item.product._id === _id);
+            const { product, quantity } = action.payload;
+            const foundIndex = state.cartItems.find((item) => item.product._id === product._id);
             if (foundIndex) {
                 foundIndex.quantity = quantity;
+            }
+            if (quantity == 0) {
+                removeItem(product._id);
             }
         },
         clearCart: (state) => {

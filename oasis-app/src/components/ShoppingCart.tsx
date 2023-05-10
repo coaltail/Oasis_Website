@@ -46,12 +46,15 @@ const ShoppingCart = () => {
       </IconButton>
       <Drawer
         sx={{
-          width: 250,
+          width: 450,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
-            width: 250,
+            width: 450,
             right: 0,
           },
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
         }}
         anchor="right"
         open={open}
@@ -87,19 +90,21 @@ const ShoppingCart = () => {
         </Box>
         <List>
           {cartItems.map((item) => (
-            <ListItem key={item.product._id} sx={{ pl: 2, pr: 2 }}>
-              <ListItemIcon>
-                <Box sx={{ width: 64, height: 64 }}>
-                  <Avatar
-                    alt={item.product.productName}
-                    src={`../assets/productPhotos/${item.product.image}`}
-                    sx={{ width: '100%', height: '100%', objectFit: 'cover', mr: 6 }}
-                  />
-                </Box>
-              </ListItemIcon>
-              <ListItemText sx={{ ml: 2, width: '50%' }} primary={item.product.productName} secondary={`$${item.product.price}`} />
-              {item.quantity > 0 && <ListItemText sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '50%' }}><Typography>{item.quantity}</Typography></ListItemText>}
-            </ListItem>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <ListItem key={item.product._id} sx={{ pl: 2, pr: 2 }}>
+                <ListItemIcon>
+                  <Box sx={{ width: 128, height: 128 }}>
+                    <Box component="img"
+                      alt={item.product.productName}
+                      src={`../src/assets/productPhotos/${item.product.image}`}
+                      sx={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', mr: 6 }}
+                    />
+                  </Box>
+                </ListItemIcon>
+                <ListItemText sx={{ ml: 2, display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', flexDirection: 'column' }} primary={item.product.productName} secondary={`$${item.product.price}`} />
+                {item.quantity > 0 && <ListItemText sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}><Typography>{item.quantity}</Typography></ListItemText>}
+              </ListItem>
+            </Box>
           ))}
         </List>
       </Drawer>

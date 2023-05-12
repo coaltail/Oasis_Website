@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 export interface ProductData {
     _id: string;
     productName: string;

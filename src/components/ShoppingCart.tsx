@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Drawer,
   IconButton,
@@ -8,7 +7,6 @@ import {
   ListItemText,
   Badge,
   Box,
-  Avatar,
   Button,
   Typography
 } from "@mui/material";
@@ -18,11 +16,10 @@ import {
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import carticon from "../assets/productPhotos/1683064494689-twit-graph.png";
-import { clearCart } from "../state/reduxCart";
+import { CartItem, clearCart } from "../state/reduxCart";
 
 const ShoppingCart = () => {
-  const cartItems = useSelector((state) => state.cart.cartItems);
+  const cartItems = useSelector((state: any) => state.cart.cartItems);
   console.log("Cart items: ", cartItems);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
@@ -89,7 +86,7 @@ const ShoppingCart = () => {
 
         </Box>
         <List>
-          {cartItems.map((item) => (
+          {cartItems.map((item: CartItem) => (
             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <ListItem key={item.product._id} sx={{ pl: 2, pr: 2 }}>
                 <ListItemIcon>

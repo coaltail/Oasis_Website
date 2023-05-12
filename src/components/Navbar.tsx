@@ -1,18 +1,17 @@
-import { Box, AppBar, CssBaseline, Typography, Toolbar, IconButton, List, ListItem, ListItemButton, ListItemText, Divider, Stack, Link as MuiLink, Button } from '@mui/material';
-import EngineeringRoundedIcon from '@mui/icons-material/EngineeringRounded';
+import { Box, AppBar, Typography, Toolbar,  Stack, Link as MuiLink, Button } from '@mui/material';
+
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
-import { AuthState } from '../state/redux';
+
 import { setLogout } from '../state/redux';
 import { useDispatch } from 'react-redux';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
 import ShoppingCart from './ShoppingCart';
-import { useState } from 'react'
+
 import { clearCart } from '../state/reduxCart';
 import { BeachAccess } from '@mui/icons-material';
 const Navbar = () => {
-    const user = useSelector((state) => state.user.user);
-    const cart = useSelector((state) => state.cart.cartItems);
+    const user = useSelector((state: any) => state.user.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleLogout = () => {

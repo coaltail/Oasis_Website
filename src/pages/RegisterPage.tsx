@@ -1,8 +1,7 @@
-import React, { FormEvent } from 'react';
+import { FormEvent } from 'react';
 import { useState } from 'react';
 import { Box, Typography, TextField, Button, Grid, Avatar, CssBaseline, Container, Link, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { AxiosError } from 'axios';
 import axios from 'axios';
 import LockIcon from '@mui/icons-material/Lock';
 import Copyright from '../components/Copyright';

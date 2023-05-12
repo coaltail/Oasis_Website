@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Product from '../components/Product'
-import { Box, Container, Grid, Typography } from '@mui/material'
+import { Grid } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { ProductData, addItem } from '../state/reduxCart';
 import api from '../utils/axios';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 const ProductPage = () => {
     const navigate = useNavigate();
     const [products, setProducts] = useState<ProductData[]>([]);
     const dispatch = useDispatch();
-    const cart = useSelector((state) => state.cart);
     useEffect(() => {
         const fetchProducts = async () => {
             try {

@@ -1,11 +1,9 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:5050',
+  baseURL: 'http://localhost:5050/',
   timeout: 5000,
   withCredentials: true,
-  xsrfCookieName: 'Authorization',
-  xsrfHeaderName: 'Authorization',
 });
 
 instance.interceptors.request.use((config) => {

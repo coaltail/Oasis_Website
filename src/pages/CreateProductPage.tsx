@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
-import { Box, Container, TextField, Typography, FormControl, Grid, Button, Input, InputLabel } from '@mui/material';
+import { Box, Container, TextField, Typography, FormControl, Grid, Button } from '@mui/material';
 import api from '../utils/axios';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { AuthState } from '../state/redux';
@@ -42,7 +42,7 @@ const CreateProductPage = () => {
         }
     };
 
-    const handleFormSubmit = async (e) => {
+    const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             const response = await api.post("/products/create", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
@@ -63,7 +63,7 @@ const CreateProductPage = () => {
     }, [user])
 
     return (
-        <Box sx={{ mt: 8, pt: 4 }} component='form' onSubmit={handleFormSubmit}>
+        <form onSubmit={handleFormSubmit}>
             <Container maxWidth="sm" sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
                 <Typography variant="h4" align="center" sx={{ pb: 4 }}>
                     Create a New Product
@@ -145,7 +145,7 @@ const CreateProductPage = () => {
                     </Box>
                 </FormControl>
             </Container>
-        </Box>
+        </form>
     )
 }
 

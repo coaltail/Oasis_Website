@@ -1,15 +1,14 @@
-import React from "react";
+
 import {
-    Box,
     Grid,
     Card,
-    CardActionArea,
+
     CardContent,
     CardMedia,
     Typography,
     Button
 } from "@mui/material";
-import { useEffect } from "react";
+
 interface Props {
     name: string;
     price: number;

@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react'
-import { Box, Container, Button, Grid, Typography } from '@mui/material'
+import { useEffect } from 'react'
+import { Box, Button, Grid, Typography } from '@mui/material'
 import { Link } from 'react-router-dom';
 import macbook from '../assets/macbook-front.jpg';
-import axiosInstance from '../utils/axios'
+
 import { useSelector } from 'react-redux';
 import api from '../utils/axios'
-import { motion } from 'framer-motion';
-import { AuthState } from '../state/redux'
+
 const HomePage = () => {
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state: any) => state.user.user);
   console.log(user);
   useEffect(() => {
     const refreshToken = async () => {

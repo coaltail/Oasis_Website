@@ -2,8 +2,6 @@ import { FormEvent, useEffect } from 'react';
 import { useState } from 'react';
 import { Box, Typography, TextField, Button, Grid, Link, Container, Avatar, CssBaseline, Alert } from '@mui/material';
 import { loginUser } from '../services/authFunctions';
-import { palette } from '@mui/system';
-import ErrorIcon from '@mui/icons-material/Error';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setLogin } from '../state/redux';
@@ -44,9 +42,7 @@ const LoginPage = () => {
             const response = await loginUser(formData).then(data => {
                 dispatch(
                     setLogin({
-                        user: data.user,
-                        accessToken: data.accessToken,
-                        refreshToken: data.refreshToken,
+                        user: data.user
                     })
                 )
             });

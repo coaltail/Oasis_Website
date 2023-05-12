@@ -1,9 +1,8 @@
-import { Container, Grid, Box, Typography, Rating, IconButton, styled } from '@mui/material'
-import React from 'react'
+import { Container, Grid, Box, Typography, Rating, IconButton } from '@mui/material'
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import api from '../utils/axios';
-import { ProductData, updateQuantityInCart, clearCart } from '../state/reduxCart';
+import { ProductData, updateQuantityInCart } from '../state/reduxCart';
 import { useDispatch } from 'react-redux';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -22,7 +21,7 @@ const SingleProductPage = () => {
   const [productData, setProductData] = useState<ProductData | null>(null);
   const [quantity, setQuantity] = useState(0);
   const [selected, setSelected] = useState('specifications');
-  const [reviews, setReviews] = useState(0);
+  const [reviews] = useState(0);
   const { id } = useParams();
   const dispatch = useDispatch();
   const handleAddToCart = () => {
@@ -76,21 +75,21 @@ const SingleProductPage = () => {
               <Typography
                 sx={{
                   ...commonStyles,
-                  color: selected === 'specifications' && '#3E8C6F',
-                  textDecoration: selected === 'specifications' && 'underline',
+                  color: selected === 'specifications' ? '#3E8C6F' : 'black',
+                  textDecoration: selected === 'specifications' ? 'underline' : 'none',
                 }}
                 onClick={() => setSelected('specifications')}
               >
                 Specifications
               </Typography>
               <Typography
-                sx={{ ...commonStyles, color: selected === 'about' && '#3E8C6F' }}
+                sx={{ ...commonStyles, color: selected === 'reviews' ? '#3E8C6F' : 'black' }}
                 onClick={() => setSelected('about')}
               >
                 About
               </Typography>
               <Typography
-                sx={{ ...commonStyles, color: selected === 'reviews' && '#3E8C6F' }}
+                sx={{ ...commonStyles, color: selected === 'reviews' ? '#3E8C6F' : 'black' }}
                 onClick={() => setSelected('reviews')}
               >
                 Reviews

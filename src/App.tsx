@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import PrivateRoute from "./components/PrivateRoute.tsx";
 import { CssBaseline } from "@mui/material";
 import SingleProductPage from "./pages/SingleProductPage.tsx";
+import NotFound from "./pages/NotFound.tsx";
 
 function App() {
   const user = useSelector((state: any) => state.user.user);
@@ -35,6 +36,7 @@ function App() {
         <Route path="/products/create" element={<PrivateRouteWrapper message="You must be logged in to view this page. "><CreateProductPage /></PrivateRouteWrapper>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </>
   );

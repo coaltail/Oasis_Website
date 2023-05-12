@@ -1,4 +1,4 @@
-import { Container, Grid, Box, Typography, Rating, IconButton } from '@mui/material'
+import { Container, Grid, Box, Typography, Rating, IconButton, Skeleton } from '@mui/material'
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import api from '../utils/axios';
@@ -6,6 +6,7 @@ import { ProductData, updateQuantityInCart } from '../state/reduxCart';
 import { useDispatch } from 'react-redux';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import NotFound from './NotFound';
 const commonStyles = {
   fontWeight: '600',
   mr: 4,
@@ -20,26 +21,47 @@ const SingleProductPage = () => {
 
   const [productData, setProductData] = useState<ProductData | null>(null);
   const [quantity, setQuantity] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [reviews, setReviews] = useState(0);
   const [selected, setSelected] = useState('specifications');
-  const [reviews] = useState(0);
-  const { id } = useParams();
   const dispatch = useDispatch();
+  const { id } = useParams();
+
   const handleAddToCart = () => {
     dispatch(updateQuantityInCart({ product: productData, quantity: quantity }))
   }
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await api.get<ProductData>(`/products/${id}`);
-        setProductData(response.data);
-        console.log(response.data)
-      } catch (error) {
-        console.error(error);
+
+  const fetchData = async () => {
+    try {
+      const response = await api.get<ProductData>(`/products/${id}`);
+      setProductData(response.data);
+      setLoading(false);
+      console.log(response.data)
+
+    } catch (error: any) {
+      console.error(error);
+      setLoading(false);
+      if (error.response && error.response.status === 404) {
+        return; // do nothing, let the component render the 404 page
       }
-    };
+    }
+  };
+
+  useEffect(() => {
     fetchData();
   }, []);
-
+  if (loading) {
+    return (
+      <div>
+        <Skeleton />
+        <Skeleton animation="wave" />
+        <Skeleton animation={false} />
+      </div>
+    );
+  }
+  if (!productData) {
+    return <NotFound />;
+  }
 
   return (
     <Container sx={{ pt: 8 }}>
@@ -60,9 +82,7 @@ const SingleProductPage = () => {
             <Typography variant="h4" sx={{ fontWeight: 700, textAlign: 'left', mb: 2 }}>
               {productData?.productName}
             </Typography>
-            <Typography variant="h5" sx={{ fontWeight: 400, textAlign: 'left', mb: 2 }}>
-              {productData?.description}
-            </Typography>
+
             <Rating name="half-rating" defaultValue={2.5} precision={0.5} sx={{ color: '#3E8C6F', fontSize: '24px' }} />
             <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', mb: 4 }}>
 

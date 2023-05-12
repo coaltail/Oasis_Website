@@ -57,7 +57,7 @@ const CreateProductPage = () => {
     const user = useSelector((state: AuthState) => state.user) || null;
 
     useEffect(() => {
-        if (!user || user.role != 'admin') {
+        if (!user) {
             navigate("/");
         }
     }, [user])
@@ -85,6 +85,8 @@ const CreateProductPage = () => {
                             <TextField
                                 required
                                 fullWidth
+                                multiline
+                                rows={4}
                                 id="description"
                                 label="Description"
                                 name="description"

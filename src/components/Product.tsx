@@ -10,7 +10,6 @@ import {
     Button
 } from "@mui/material";
 import { useEffect } from "react";
-import { makeStyles } from "@mui/styles";
 interface Props {
     name: string;
     price: number;
@@ -18,27 +17,15 @@ interface Props {
     onClick: () => void;
     onNavigate: () => void;
 }
-const useStyles = makeStyles({
-    root: {
-        minWidth: 200,
-        maxwidth: 280
-    },
-    title: {
-        fontSize: 14
-    },
-    pos: {
-        marginBottom: 12
-    }
-});
+
 
 const Product: React.FC<Props> = ({ name, price, image, onClick, onNavigate }: Props) => {
-    const classes = useStyles();
     const handleAddToCartClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
         onClick();
     }
     return (
-        <Card className={classes.root}
+        <Card
             sx={{
                 transition: "all 0.2s ease-in-out",
                 "&:hover": {
@@ -48,6 +35,8 @@ const Product: React.FC<Props> = ({ name, price, image, onClick, onNavigate }: P
                 cursor: "pointer",
                 margin: "0 auto",
                 padding: "0.1em",
+                minWidth: 200,
+                maxwidth: 280,
             }}
             variant="outlined"
             onClick={onNavigate}

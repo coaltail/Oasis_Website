@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Box, Button, Grid, Typography } from '@mui/material'
 import { Link } from 'react-router-dom';
 import macbook from '../assets/macbook-front.jpg';
-
+import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import api from '../utils/axios'
 
@@ -41,8 +41,20 @@ const HomePage = () => {
               p: 3,
             }}
           >
-            <Typography variant="h3" component="h1" gutterBottom>
-              Welcome to OASIS!
+            <Typography
+              variant="h3"
+              component="h1"
+              gutterBottom
+              sx={{
+                display: 'flex'
+              }}
+            >
+              Welcome to<Typography variant="h3"
+                component="h1" sx={{
+                  backgroundImage: 'linear-gradient(45deg, #1db954, #3E8C6F)',
+                  WebkitBackgroundClip: 'text',
+                  color: 'transparent',
+                }}>&nbsp;OASIS!</Typography>
             </Typography>
             <Typography variant="subtitle1" gutterBottom>
               The ultimate shopping experience.
@@ -51,9 +63,24 @@ const HomePage = () => {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquet eleifend nisl eget vehicula. Maecenas eget ultrices quam. Praesent semper auctor diam.
             </Typography>
             <Link to="/products" style={{ textDecoration: 'none' }}>
-              <Button variant="contained" color="primary" sx={{ mt: 3 }}>
-                Explore Products
-              </Button>
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <Button
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "#3E8C6F",
+                    color: "#fff",
+                    "&:hover": {
+                      backgroundColor: "#295665",
+                    },
+                  }}
+                >
+                  Click me!
+                </Button>
+              </motion.div>
+
             </Link>
           </Box>
         </Grid>

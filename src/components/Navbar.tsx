@@ -1,8 +1,8 @@
-import { Box, AppBar, Typography, Toolbar,  Stack, Link as MuiLink, Button } from '@mui/material';
+import { Box, AppBar, Typography, Toolbar, Stack, Link as MuiLink, Button } from '@mui/material';
 
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
-
+import { motion } from 'framer-motion';
 import { setLogout } from '../state/redux';
 import { useDispatch } from 'react-redux';
 
@@ -45,53 +45,72 @@ const Navbar = () => {
                 </Box>
                 <Stack direction="row" spacing={2} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <Typography>
-                        <MuiLink
-                            component={Link}
-                            to="/products"
-                            sx={{
-                                color: 'white',
-                                textDecoration: 'none',
-                                '&:hover': {
-                                    textDecoration: 'none',
-                                    color: '#5AB5A5',
-                                    transition: '0.3s ease-out',
-                                },
-                            }}
+                        <motion.div
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
                         >
-                            Products
-                        </MuiLink>
+                            <MuiLink
+                                component={Link}
+                                to="/products"
+                                sx={{
+                                    color: 'white',
+                                    textDecoration: 'none',
+                                    '&:hover': {
+                                        textDecoration: 'none',
+                                        color: '#5AB5A5',
+                                        transition: '0.3s ease-out',
+                                    },
+                                }}
+                            >
+                                Products
+                            </MuiLink>
+                        </motion.div>
                     </Typography>
                     {!user ? (
                         <>
                             <Typography>
-                                <MuiLink
-                                    component={Link}
-                                    to="/register"
-                                    sx={{
-                                        color: 'white',
-                                        textDecoration: 'none',
-                                        '&:hover': {
-                                            textDecoration: 'underline',
-                                        },
-                                    }}
+                                <motion.div
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.9 }}
                                 >
-                                    Register
-                                </MuiLink>
+                                    <MuiLink
+                                        component={Link}
+                                        to="/register"
+                                        sx={{
+                                            color: 'white',
+                                            textDecoration: 'none',
+                                            '&:hover': {
+                                                textDecoration: 'none',
+                                                color: '#5AB5A5',
+                                                transition: '0.3s ease-out',
+                                            },
+                                        }}
+                                    >
+                                        Register
+                                    </MuiLink>
+                                </motion.div>
                             </Typography>
                             <Typography>
-                                <MuiLink
-                                    component={Link}
-                                    to="/login"
-                                    sx={{
-                                        color: 'white',
-                                        textDecoration: 'none',
-                                        '&:hover': {
-                                            textDecoration: 'underline',
-                                        },
-                                    }}
+                                <motion.div
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.9 }}
                                 >
-                                    Login
-                                </MuiLink>
+                                    <MuiLink
+                                        component={Link}
+                                        to="/login"
+                                        sx={{
+                                            color: 'white',
+                                            textDecoration: 'none',
+                                            '&:hover': {
+                                                textDecoration: 'none',
+                                                color: '#5AB5A5',
+                                                transition: '0.3s ease-out',
+                                            },
+                                        }}
+                                    >
+                                        Login
+                                    </MuiLink>
+                                </motion.div>
                             </Typography>
                         </>
                     ) : (
@@ -108,7 +127,7 @@ const Navbar = () => {
                             </Button>
                         </Typography>
                     )}
-                    <ShoppingCart />
+                    {user && <ShoppingCart />}
                 </Stack>
             </Toolbar>
         </AppBar>

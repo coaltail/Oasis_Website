@@ -7,6 +7,8 @@ import { useDispatch } from 'react-redux';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import NotFound from './NotFound';
+import HoverButton from '../components/StyledButtonWithHover';
+
 const commonStyles = {
   fontWeight: '600',
   mr: 4,
@@ -41,9 +43,6 @@ const SingleProductPage = () => {
     } catch (error: any) {
       console.error(error);
       setLoading(false);
-      if (error.response && error.response.status === 404) {
-        return; // do nothing, let the component render the 404 page
-      }
     }
   };
 
@@ -103,13 +102,13 @@ const SingleProductPage = () => {
                 Specifications
               </Typography>
               <Typography
-                sx={{ ...commonStyles, color: selected === 'reviews' ? '#3E8C6F' : 'black' }}
+                sx={{ ...commonStyles, color: selected === 'about' ? '#3E8C6F' : 'black', textDecoration: selected === 'about' ? 'underline' : 'none' }}
                 onClick={() => setSelected('about')}
               >
                 About
               </Typography>
               <Typography
-                sx={{ ...commonStyles, color: selected === 'reviews' ? '#3E8C6F' : 'black' }}
+                sx={{ ...commonStyles, color: selected === 'reviews' ? '#3E8C6F' : 'black', textDecoration: selected === 'reviews' ? 'underline' : 'none' }}
                 onClick={() => setSelected('reviews')}
               >
                 Reviews
@@ -145,9 +144,9 @@ const SingleProductPage = () => {
               </Box>
             </Box>
 
-            <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
-              <Box onClick={handleAddToCart} component="button" sx={{ borderRadius: '6px', backgroundColor: '#3E8C6F', cursor: 'pointer', color: 'white', border: 'none', py: 2, px: 4, mr: 2 }}>Add to Cart</Box>
-              <Box component="button" sx={{ borderRadius: '6px', backgroundColor: '#F1F1F1', cursor: 'pointer', color: '#3E8C6F', border: 'none', py: 2, px: 4 }}>Add to Wishlist</Box>
+            <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
+              <HoverButton sx={{ p: 2, m: 2 }} onClick={handleAddToCart} >Add to Cart</HoverButton>
+              <HoverButton sx={{ p: 2 }} onClick={() => console.log("Clicked")}>Add to Wishlist</HoverButton>
             </Box>
 
           </Box>

@@ -30,6 +30,7 @@ const ProductPage = () => {
         <Grid container
             spacing={4}
             justifyContent="center"
+            alignItems="stretch"
             sx={{
                 paddingLeft: "40px",
                 paddingRight: "40px",

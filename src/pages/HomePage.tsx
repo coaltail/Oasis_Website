@@ -19,28 +19,7 @@ const HomePage = () => {
     refreshToken();
   })
   return (
-    <Box
-      sx={{
-        bgcolor: '#ffffff',
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'flex-start',
-              height: '100%',
-              p: 3,
-            }}
-          >
+    /*
             <Typography
               variant="h3"
               component="h1"
@@ -56,52 +35,46 @@ const HomePage = () => {
                   color: 'transparent',
                 }}>&nbsp;OASIS!</Typography>
             </Typography>
-            <Typography variant="subtitle1" gutterBottom>
-              The ultimate shopping experience.
-            </Typography>
-            <Typography variant="body1" gutterBottom>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquet eleifend nisl eget vehicula. Maecenas eget ultrices quam. Praesent semper auctor diam.
-            </Typography>
-            <Link to="/products" style={{ textDecoration: 'none' }}>
-              <motion.div
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <Button
-                  variant="contained"
-                  sx={{
-                    backgroundColor: "#3E8C6F",
-                    color: "#fff",
-                    "&:hover": {
-                      backgroundColor: "#295665",
-                    },
-                  }}
-                >
-                  Click me!
-                </Button>
-              </motion.div>
 
-            </Link>
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Box
+    */
+    <div className='bg-gradient-to-b from-bg1 via-bg2 to-bg3'>
+      <Box
+        className='bg-[linear-gradient(to right, #a8ff78, #78ffd6)]'
+        sx={{
+          bgcolor: '#ffffff',
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'linear-gradient(to right, #a8ff78, #78ffd6)',
+        }}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: -250 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2 }}
+          className='flex justify-center flex-col items-center'
+        >
+          <Typography
+            variant="h3"
+            gutterBottom
             sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '100%',
+              color: 'white'
             }}
           >
-            <img
-              src={macbook}
-              alt="Product"
-              style={{ width: '100%', height: 'auto' }}
-            />
-          </Box>
-        </Grid>
-      </Grid>
-    </Box>
+            Welcome to OASIS!
+          </Typography>
+
+          <Typography variant='h4' sx={{ color: 'white' }}>The ultimate shopping experience</Typography>
+        </motion.div>
+        <Box>
+
+
+        </Box>
+
+      </Box>
+    </div>
   );
 };
 

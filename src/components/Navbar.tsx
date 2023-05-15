@@ -7,7 +7,7 @@ import { setLogout } from '../state/redux';
 import { useDispatch } from 'react-redux';
 
 import ShoppingCart from './ShoppingCart';
-
+import HoverButton from './StyledButtonWithHover';
 import { clearCart } from '../state/reduxCart';
 import { BeachAccess } from '@mui/icons-material';
 const Navbar = () => {
@@ -21,7 +21,7 @@ const Navbar = () => {
 
     };
     return (
-        <AppBar position="static" sx={{ bgcolor: '#3E8C6F' }}>
+        <AppBar position="static" sx={{ bgcolor: 'black' }}>
             <Toolbar sx={{ justifyContent: 'space-between' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <BeachAccess />
@@ -34,7 +34,7 @@ const Navbar = () => {
                                 textDecoration: 'none',
                                 '&:hover': {
                                     textDecoration: 'none',
-                                    color: '#5AB5A5',
+                                    color: '#64748b',
                                     transition: '0.3s ease-out',
                                 },
                             }}
@@ -44,11 +44,11 @@ const Navbar = () => {
                     </Typography>
                 </Box>
                 <Stack direction="row" spacing={2} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <Typography>
-                        <motion.div
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                        >
+                    <motion.div
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                    >
+                        <Typography>
                             <MuiLink
                                 component={Link}
                                 to="/products"
@@ -57,22 +57,22 @@ const Navbar = () => {
                                     textDecoration: 'none',
                                     '&:hover': {
                                         textDecoration: 'none',
-                                        color: '#5AB5A5',
+                                        color: '#64748b',
                                         transition: '0.3s ease-out',
                                     },
                                 }}
                             >
                                 Products
                             </MuiLink>
-                        </motion.div>
-                    </Typography>
+                        </Typography>
+                    </motion.div>
                     {!user ? (
                         <>
-                            <Typography>
-                                <motion.div
-                                    whileHover={{ scale: 1.1 }}
-                                    whileTap={{ scale: 0.9 }}
-                                >
+                            <motion.div
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                            >
+                                <Typography>
                                     <MuiLink
                                         component={Link}
                                         to="/register"
@@ -81,20 +81,20 @@ const Navbar = () => {
                                             textDecoration: 'none',
                                             '&:hover': {
                                                 textDecoration: 'none',
-                                                color: '#5AB5A5',
+                                                color: '#64748b',
                                                 transition: '0.3s ease-out',
                                             },
                                         }}
                                     >
                                         Register
                                     </MuiLink>
-                                </motion.div>
-                            </Typography>
-                            <Typography>
-                                <motion.div
-                                    whileHover={{ scale: 1.1 }}
-                                    whileTap={{ scale: 0.9 }}
-                                >
+                                </Typography>
+                            </motion.div>
+                            <motion.div
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                            >
+                                <Typography>
                                     <MuiLink
                                         component={Link}
                                         to="/login"
@@ -103,15 +103,15 @@ const Navbar = () => {
                                             textDecoration: 'none',
                                             '&:hover': {
                                                 textDecoration: 'none',
-                                                color: '#5AB5A5',
+                                                color: '#64748b',
                                                 transition: '0.3s ease-out',
                                             },
                                         }}
                                     >
                                         Login
                                     </MuiLink>
-                                </motion.div>
-                            </Typography>
+                                </Typography>
+                            </motion.div>
                         </>
                     ) : (
                         <Typography>
@@ -119,7 +119,7 @@ const Navbar = () => {
                                 bgcolor: '#fff',
                                 color: '#3E8C6F',
                                 '&:hover': {
-                                    bgcolor: '#3E8C6F',
+                                    bgcolor: '#64748b',
                                     color: '#fff',
                                 },
                             }}>

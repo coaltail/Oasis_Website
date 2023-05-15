@@ -17,7 +17,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { CartItem, clearCart } from "../state/reduxCart";
-
+import HoverButton from "./StyledButtonWithHover";
 const ShoppingCart = () => {
   const cartItems = useSelector((state: any) => state.cart.cartItems);
   console.log("Cart items: ", cartItems);
@@ -35,7 +35,7 @@ const ShoppingCart = () => {
             textDecoration: 'none',
             '&:hover': {
               textDecoration: 'none',
-              color: '#5AB5A5',
+              color: '#64748b',
               transition: '0.3s ease-out',
             },
           }} />
@@ -76,13 +76,7 @@ const ShoppingCart = () => {
           >
             <CloseIcon />
           </IconButton>
-          <Button variant="contained" sx={{
-            backgroundColor: '#3E8C6F',
-            color: 'white',
-            '&:hover': {
-              backgroundColor: '#2C6F51',
-            },
-          }} onClick={() => dispatch(clearCart())}>Clear cart Items</Button>
+          <HoverButton onClick={() => dispatch(clearCart())}>Clear cart Items</HoverButton>
 
         </Box>
         <List>

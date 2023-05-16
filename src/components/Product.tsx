@@ -37,14 +37,14 @@ const Product: React.FC<Props> = ({ name, price, image, onClick, onNavigate }: P
                 padding: "0.1em",
                 minWidth: 200,
                 maxwidth: 280,
-                height: 300,
+                minHeight: 300,
             }}
             variant="outlined"
             onClick={onNavigate}
         >
             <CardMedia
                 component="img"
-                sx={{ objectFit: "contain", maxHeight: 200 }}
+                sx={{ objectFit: "contain", maxHeight: 250, minHeight: 250 }}
                 image={image}
                 title={name}
             />

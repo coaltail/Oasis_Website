@@ -1,13 +1,13 @@
-import { Box, AppBar, Typography, Toolbar,  Stack, Link as MuiLink, Button } from '@mui/material';
+import { Box, AppBar, Typography, Toolbar, Stack, Link as MuiLink, Button } from '@mui/material';
 
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
-
+import { motion } from 'framer-motion';
 import { setLogout } from '../state/redux';
 import { useDispatch } from 'react-redux';
 
 import ShoppingCart from './ShoppingCart';
-
+import HoverButton from './StyledButtonWithHover';
 import { clearCart } from '../state/reduxCart';
 import { BeachAccess } from '@mui/icons-material';
 const Navbar = () => {
@@ -21,7 +21,7 @@ const Navbar = () => {
 
     };
     return (
-        <AppBar position="static" sx={{ bgcolor: '#3E8C6F' }}>
+        <AppBar position="static" sx={{ bgcolor: 'black' }}>
             <Toolbar sx={{ justifyContent: 'space-between' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <BeachAccess />
@@ -34,7 +34,7 @@ const Navbar = () => {
                                 textDecoration: 'none',
                                 '&:hover': {
                                     textDecoration: 'none',
-                                    color: '#5AB5A5',
+                                    color: '#64748b',
                                     transition: '0.3s ease-out',
                                 },
                             }}
@@ -44,55 +44,74 @@ const Navbar = () => {
                     </Typography>
                 </Box>
                 <Stack direction="row" spacing={2} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <Typography>
-                        <MuiLink
-                            component={Link}
-                            to="/products"
-                            sx={{
-                                color: 'white',
-                                textDecoration: 'none',
-                                '&:hover': {
+                    <motion.div
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                    >
+                        <Typography>
+                            <MuiLink
+                                component={Link}
+                                to="/products"
+                                sx={{
+                                    color: 'white',
                                     textDecoration: 'none',
-                                    color: '#5AB5A5',
-                                    transition: '0.3s ease-out',
-                                },
-                            }}
-                        >
-                            Products
-                        </MuiLink>
-                    </Typography>
+                                    '&:hover': {
+                                        textDecoration: 'none',
+                                        color: '#64748b',
+                                        transition: '0.3s ease-out',
+                                    },
+                                }}
+                            >
+                                Products
+                            </MuiLink>
+                        </Typography>
+                    </motion.div>
                     {!user ? (
                         <>
-                            <Typography>
-                                <MuiLink
-                                    component={Link}
-                                    to="/register"
-                                    sx={{
-                                        color: 'white',
-                                        textDecoration: 'none',
-                                        '&:hover': {
-                                            textDecoration: 'underline',
-                                        },
-                                    }}
-                                >
-                                    Register
-                                </MuiLink>
-                            </Typography>
-                            <Typography>
-                                <MuiLink
-                                    component={Link}
-                                    to="/login"
-                                    sx={{
-                                        color: 'white',
-                                        textDecoration: 'none',
-                                        '&:hover': {
-                                            textDecoration: 'underline',
-                                        },
-                                    }}
-                                >
-                                    Login
-                                </MuiLink>
-                            </Typography>
+                            <motion.div
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                            >
+                                <Typography>
+                                    <MuiLink
+                                        component={Link}
+                                        to="/register"
+                                        sx={{
+                                            color: 'white',
+                                            textDecoration: 'none',
+                                            '&:hover': {
+                                                textDecoration: 'none',
+                                                color: '#64748b',
+                                                transition: '0.3s ease-out',
+                                            },
+                                        }}
+                                    >
+                                        Register
+                                    </MuiLink>
+                                </Typography>
+                            </motion.div>
+                            <motion.div
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                            >
+                                <Typography>
+                                    <MuiLink
+                                        component={Link}
+                                        to="/login"
+                                        sx={{
+                                            color: 'white',
+                                            textDecoration: 'none',
+                                            '&:hover': {
+                                                textDecoration: 'none',
+                                                color: '#64748b',
+                                                transition: '0.3s ease-out',
+                                            },
+                                        }}
+                                    >
+                                        Login
+                                    </MuiLink>
+                                </Typography>
+                            </motion.div>
                         </>
                     ) : (
                         <Typography>
@@ -100,7 +119,7 @@ const Navbar = () => {
                                 bgcolor: '#fff',
                                 color: '#3E8C6F',
                                 '&:hover': {
-                                    bgcolor: '#3E8C6F',
+                                    bgcolor: '#64748b',
                                     color: '#fff',
                                 },
                             }}>
@@ -108,7 +127,7 @@ const Navbar = () => {
                             </Button>
                         </Typography>
                     )}
-                    <ShoppingCart />
+                    {user && <ShoppingCart />}
                 </Stack>
             </Toolbar>
         </AppBar>

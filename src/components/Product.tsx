@@ -8,6 +8,7 @@ import {
     Typography,
     Button
 } from "@mui/material";
+import HoverButton from "./StyledButtonWithHover";
 
 interface Props {
     name: string;
@@ -36,14 +37,14 @@ const Product: React.FC<Props> = ({ name, price, image, onClick, onNavigate }: P
                 padding: "0.1em",
                 minWidth: 200,
                 maxwidth: 280,
+                height: 300,
             }}
             variant="outlined"
             onClick={onNavigate}
         >
             <CardMedia
                 component="img"
-                height="250"
-                sx={{ objectFit: "contain" }}
+                sx={{ objectFit: "contain", maxHeight: 200 }}
                 image={image}
                 title={name}
             />
@@ -58,14 +59,7 @@ const Product: React.FC<Props> = ({ name, price, image, onClick, onNavigate }: P
                         </Typography>
                     </Grid>
                     <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Button variant="contained"
-                            sx={{
-                                backgroundColor: '#3E8C6F',
-                                color: 'white',
-                                '&:hover': {
-                                    backgroundColor: '#2C6F51',
-                                },
-                            }} onClick={handleAddToCartClick}>Add to Cart</Button>
+                        <HoverButton onClick={handleAddToCartClick}>Add to Cart</HoverButton>
                     </Grid>
                 </Grid>
             </CardContent>

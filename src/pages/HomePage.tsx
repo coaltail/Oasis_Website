@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Box, Button, Grid, Typography } from '@mui/material'
 import { Link } from 'react-router-dom';
 import macbook from '../assets/macbook-front.jpg';
-
+import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import api from '../utils/axios'
 
@@ -19,62 +19,62 @@ const HomePage = () => {
     refreshToken();
   })
   return (
-    <Box
-      sx={{
-        bgcolor: '#ffffff',
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <Box
+    /*
+            <Typography
+              variant="h3"
+              component="h1"
+              gutterBottom
+              sx={{
+                display: 'flex'
+              }}
+            >
+              Welcome to<Typography variant="h3"
+                component="h1" sx={{
+                  backgroundImage: 'linear-gradient(45deg, #1db954, #3E8C6F)',
+                  WebkitBackgroundClip: 'text',
+                  color: 'transparent',
+                }}>&nbsp;OASIS!</Typography>
+            </Typography>
+
+    */
+    <div className='bg-gradient-to-b from-bg1 via-bg2 to-bg3'>
+      <Box
+        className='bg-[linear-gradient(to right, #a8ff78, #78ffd6)]'
+        sx={{
+          bgcolor: '#ffffff',
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'linear-gradient(to right, #a8ff78, #78ffd6)',
+        }}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: -250 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2 }}
+          className='flex justify-center flex-col items-center'
+        >
+          <Typography
+            variant="h3"
+            gutterBottom
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'flex-start',
-              height: '100%',
-              p: 3,
+              color: 'white'
             }}
           >
-            <Typography variant="h3" component="h1" gutterBottom>
-              Welcome to OASIS!
-            </Typography>
-            <Typography variant="subtitle1" gutterBottom>
-              The ultimate shopping experience.
-            </Typography>
-            <Typography variant="body1" gutterBottom>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquet eleifend nisl eget vehicula. Maecenas eget ultrices quam. Praesent semper auctor diam.
-            </Typography>
-            <Link to="/products" style={{ textDecoration: 'none' }}>
-              <Button variant="contained" color="primary" sx={{ mt: 3 }}>
-                Explore Products
-              </Button>
-            </Link>
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '100%',
-            }}
-          >
-            <img
-              src={macbook}
-              alt="Product"
-              style={{ width: '100%', height: 'auto' }}
-            />
-          </Box>
-        </Grid>
-      </Grid>
-    </Box>
+            Welcome to OASIS!
+          </Typography>
+
+          <Typography variant='h4' sx={{ color: 'white' }}>The ultimate shopping experience</Typography>
+        </motion.div>
+        <Box>
+
+
+        </Box>
+
+      </Box>
+    </div>
   );
 };
 

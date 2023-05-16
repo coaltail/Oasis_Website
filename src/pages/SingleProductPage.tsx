@@ -8,7 +8,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import NotFound from './NotFound';
 import HoverButton from '../components/StyledButtonWithHover';
-
+import CustomTabs from '../components/CustomTabs';
 const commonStyles = {
   fontWeight: '600',
   mr: 4,
@@ -25,7 +25,7 @@ const SingleProductPage = () => {
   const [quantity, setQuantity] = useState(0);
   const [loading, setLoading] = useState(true);
   const [reviews, setReviews] = useState(0);
-  const [selected, setSelected] = useState('specifications');
+  const [selected, setSelected] = useState('Specifications');
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -91,41 +91,29 @@ const SingleProductPage = () => {
               ${productData?.price}.00
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-              <Typography
-                sx={{
-                  ...commonStyles,
-                  color: selected === 'specifications' ? '#3E8C6F' : 'black',
-                  textDecoration: selected === 'specifications' ? 'underline' : 'none',
-                }}
-                onClick={() => setSelected('specifications')}
-              >
-                Specifications
-              </Typography>
-              <Typography
-                sx={{ ...commonStyles, color: selected === 'about' ? '#3E8C6F' : 'black', textDecoration: selected === 'about' ? 'underline' : 'none' }}
-                onClick={() => setSelected('about')}
-              >
-                About
-              </Typography>
-              <Typography
-                sx={{ ...commonStyles, color: selected === 'reviews' ? '#3E8C6F' : 'black', textDecoration: selected === 'reviews' ? 'underline' : 'none' }}
-                onClick={() => setSelected('reviews')}
-              >
-                Reviews
-              </Typography>
+              <CustomTabs
+                tabs={[
+                  { title: "Specifications", color: "#3E8C6F" },
+                  { title: "About", color: "#3E8C6F" },
+                  { title: "Reviews", color: "#3E8C6F" }
+                ]}
+                selected={selected}
+                setSelected={setSelected}
+                styles={{ fontWeight: "bold", fontSize: "16px", margin: 2, cursor: 'pointer' }} // Pass styles prop
+              />
             </Box>
             <Box>
-              {selected === 'specifications' && (
+              {selected === 'Specifications' && (
                 <Box>
                   <Typography sx={{ mt: 2, mb: 2 }} paragraph>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum esse repellendus voluptate error odit quibusdam molestiae eveniet perferendis, culpa magni.</Typography>
                 </Box>
               )}
-              {selected === 'about' && (
+              {selected === 'About' && (
                 <Box>
                   <Typography sx={{ mt: 2, mb: 2 }}>{productData?.description}</Typography>
                 </Box>
               )}
-              {selected === 'reviews' && (
+              {selected === 'Reviews' && (
                 <Box>
                   <Typography sx={{ mt: 2, mb: 2 }}>{reviews > 0 ? reviews : 'No reviews yet..'}</Typography>
                 </Box>

@@ -11,7 +11,7 @@ import PrivateRoute from "./components/PrivateRoute.tsx";
 import { CssBaseline } from "@mui/material";
 import SingleProductPage from "./pages/SingleProductPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
-
+import CheckoutPage from "./pages/CheckoutPage.tsx";
 function App() {
   const user = useSelector((state: any) => state.user.user);
 
@@ -37,6 +37,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="*" element={<NotFound />}></Route>
+        <Route path="/checkout" element={<PrivateRouteWrapper><CheckoutPage /></PrivateRouteWrapper>}></Route>
       </Routes>
     </>
   );

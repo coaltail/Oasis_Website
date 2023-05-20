@@ -18,14 +18,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { CartItem, clearCart } from "../state/reduxCart";
 import HoverButton from "./StyledButtonWithHover";
+import { useNavigate } from "react-router-dom";
 const ShoppingCart = () => {
   const cartItems = useSelector((state: any) => state.cart.cartItems);
   console.log("Cart items: ", cartItems);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleToggleDrawer = () => {
     setOpen(!open);
   };
+
+  const handleCheckout = () => {
+    setOpen(false);
+    navigate("/checkout");
+  }
+
   return (
     <>
       <IconButton color="inherit" onClick={handleToggleDrawer} sx={{ mr: 1 }}>
@@ -76,15 +84,29 @@ const ShoppingCart = () => {
           >
             <CloseIcon />
           </IconButton>
-          <HoverButton onClick={() => dispatch(clearCart())}>Clear cart Items</HoverButton>
-
+          <div className="flex flex-row mt-8 h-[80%] w-[50%]">
+            <HoverButton
+              sx={{ flex: 1, marginRight: '8px' }}
+              onClick={() => dispatch(clearCart())}
+            >
+              Clear
+            </HoverButton>
+            <HoverButton
+              variant="contained"
+              color="primary"
+              onClick={handleCheckout}
+              sx={{ flex: 1, marginLeft: '8px' }}
+            >
+              Checkout
+            </HoverButton>
+          </div>
         </Box>
         <List>
           {cartItems.map((item: CartItem) => (
-            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <ListItem key={item.product._id} sx={{ pl: 2, pr: 2 }}>
                 <ListItemIcon>
-                  <Box sx={{ width: 128, height: 128 }}>
+                  <Box sx={{ width: 128, height: 128, display: 'flex', justifyContent: 'center', alignItems: 'center', ml: 2 }}>
                     <Box component="img"
                       alt={item.product.productName}
                       src={`../src/assets/productPhotos/${item.product.image}`}

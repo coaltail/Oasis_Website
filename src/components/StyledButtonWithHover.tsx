@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, ButtonProps } from '@mui/material';
 
 interface HoverButtonProps extends ButtonProps {
-    onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const HoverButton: React.FC<HoverButtonProps> = ({ children, onClick, sx, ...rest }: HoverButtonProps) => {

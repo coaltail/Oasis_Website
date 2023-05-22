@@ -1,6 +1,6 @@
 import { CartItem } from '@/state/reduxCart';
 import HoverButton from '../components/StyledButtonWithHover';
-import { Box, Typography, List, ListItem, ListItemText, ListItemIcon } from '@mui/material';
+import { Box, Typography, List, ListItem, ListItemText, ListItemIcon, Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 const CheckoutPage = () => {
@@ -40,8 +40,6 @@ const CheckoutPage = () => {
                         <ListItem
                             disableGutters
                             sx={{
-                                backgroundColor: '#f5f5f5',
-                                borderRadius: '4px',
                                 marginBottom: '8px',
                                 width: '100%',
                                 display: 'flex',
@@ -53,30 +51,37 @@ const CheckoutPage = () => {
                             <ListItemText primary="Quantity" sx={{ flex: '1', textAlign: 'right' }} />
                         </ListItem>
                         {cartItems.map((item: CartItem) => (
-                            <ListItem
-                                key={item.product._id}
-                                disableGutters
-                                sx={{
-                                    backgroundColor: '#f5f5f5',
-                                    borderRadius: '4px',
-                                    marginBottom: '8px',
-                                    width: '100%',
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center',
-                                    padding: '12px',
-                                }}
-                            >
-                                <ListItemIcon sx={{ width: '100px', height: '100%' }}>
-                                    <img
-                                        src={`../src/assets/productPhotos/${item.product.image}`}
-                                        alt={item.product.productName}
-                                        style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
-                                    />
-                                </ListItemIcon>
-                                <ListItemText primary={item.product.productName} secondary={`$${item.product.price}`} sx={{ flex: '1', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} />
-                                <ListItemText primary={item.quantity.toString()} sx={{ flex: '1', textAlign: 'right' }} />
-                            </ListItem>
+                            <Grid container spacing={0}>
+                                <ListItem
+                                    key={item.product._id}
+                                    disableGutters
+                                    sx={{
+                                        backgroundColor: '#f5f5f5',
+                                        borderRadius: '4px',
+                                        boxShadow: 1,
+                                        height: '7rem',
+                                        marginBottom: '8px',
+                                        width: '100%',
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        padding: '12px',
+                                    }}
+                                >
+                                    <Grid item xs={4}>
+                                        <ListItemIcon sx={{ maxWidth: '100%', height: '100%', aspectRatio: '4/3' }}>
+                                            <img
+                                                src={`../src/assets/productPhotos/${item.product.image}`}
+                                                alt={item.product.productName}
+                                                style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
+                                            />
+
+                                        </ListItemIcon>
+                                    </Grid>
+                                    <Grid item xs={4}><ListItemText primary={item.product.productName} secondary={`$${item.product.price}.00`} sx={{ flex: '1', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} /></Grid>
+                                    <Grid item xs={2}><ListItemText primary={item.quantity.toString()} sx={{ flex: '1', textAlign: 'right' }} /></Grid>
+                                </ListItem>
+                            </Grid>
                         ))}
                     </List>
                 )}

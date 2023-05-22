@@ -59,7 +59,14 @@ const ShoppingCart = () => {
           },
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
+          "@media (max-width: 600px)": {
+            width: '100%',
+            "& .MuiDrawer-paper": {
+              width: '100%',
+              right: 0,
+            },
+          }
         }}
         anchor="right"
         open={open}

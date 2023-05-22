@@ -99,7 +99,7 @@ const SingleProductPage = () => {
                 ]}
                 selected={selected}
                 setSelected={setSelected}
-                styles={{ fontWeight: "bold", fontSize: "16px", margin: 2, cursor: 'pointer' }} // Pass styles prop
+                styles={{ fontWeight: "bold", fontSize: "16px", marginRight: 10, cursor: 'pointer' }} // Pass styles prop
               />
             </Box>
             <Box>

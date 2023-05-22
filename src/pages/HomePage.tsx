@@ -66,7 +66,7 @@ const HomePage = () => {
             Welcome to OASIS!
           </Typography>
 
-          <Typography variant='h4' sx={{ color: 'white' }}>The ultimate shopping experience</Typography>
+          <Typography variant='h4' sx={{ color: 'white', textAlign: 'center' }}>The ultimate shopping experience</Typography>
         </motion.div>
         <Box>
 

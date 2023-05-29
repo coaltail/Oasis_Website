@@ -16,7 +16,7 @@ const commonStyles = {
   cursor: 'pointer',
   '&:hover': {
     textDecoration: 'underline',
-    color: '#3E8C6F',
+    color: '#302b63',
   },
 };
 const SingleProductPage = () => {
@@ -82,20 +82,20 @@ const SingleProductPage = () => {
               {productData?.productName}
             </Typography>
 
-            <Rating name="half-rating" defaultValue={2.5} precision={0.5} sx={{ color: '#3E8C6F', fontSize: '24px' }} />
+            <Rating name="half-rating" defaultValue={2.5} precision={0.5} sx={{ color: '#302b63', fontSize: '24px' }} />
             <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', mb: 4 }}>
 
               <Typography variant="h6" sx={{ fontWeight: 400, marginLeft: '8px' }}>(0 reviews)</Typography>
             </Box>
-            <Typography variant="h3" sx={{ fontWeight: 700, textAlign: 'left', color: '#1D7273', mb: 4 }}>
+            <Typography variant="h3" sx={{ fontWeight: 700, textAlign: 'left', color: '#302b63', mb: 4 }}>
               ${productData?.price}.00
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'row' }}>
               <CustomTabs
                 tabs={[
-                  { title: "Specifications", color: "#3E8C6F" },
-                  { title: "About", color: "#3E8C6F" },
-                  { title: "Reviews", color: "#3E8C6F" }
+                  { title: "Specifications", color: "#302b63" },
+                  { title: "About", color: "#302b63" },
+                  { title: "Reviews", color: "#302b63" }
                 ]}
                 selected={selected}
                 setSelected={setSelected}

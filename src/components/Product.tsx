@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 import HoverButton from "./StyledButtonWithHover";
 
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useSelector } from "react-redux";
 interface Props {
     name: string;
     price: number;
@@ -20,6 +22,8 @@ interface Props {
 
 
 const Product: React.FC<Props> = ({ name, price, image, onClick, onNavigate }: Props) => {
+    const user = useSelector((state: any) => state.user.user);
+    console.log(user);
     const handleAddToCartClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
         onClick();
@@ -38,6 +42,7 @@ const Product: React.FC<Props> = ({ name, price, image, onClick, onNavigate }: P
                 minWidth: 200,
                 maxwidth: 280,
                 minHeight: 300,
+                position: 'relative'
             }}
             variant="outlined"
             onClick={onNavigate}
@@ -49,6 +54,13 @@ const Product: React.FC<Props> = ({ name, price, image, onClick, onNavigate }: P
                 title={name}
             />
             <CardContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                {user.role === 'admin' && <DeleteIcon sx={{
+                    color: 'red', position: 'absolute', top: 0, left: 0, '&:hover': {
+                        cursor: 'pointer',
+
+                    }
+                }}></DeleteIcon>}
+
                 <Grid container sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                     <Grid item xs={6}>
                         <Typography gutterBottom variant="h5" component="h2">
